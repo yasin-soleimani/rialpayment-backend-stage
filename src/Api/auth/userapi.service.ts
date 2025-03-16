@@ -105,6 +105,7 @@ export class UserApiService {
   }
 
   async loginState(getInfo: loginAuthDto, ip: String, req): Promise<any> {
+    console.log("test git pull in docker file");
     console.log('before check login');
     const data = await this.userService.checkLogin(getInfo, req);
     console.log('after check login');
