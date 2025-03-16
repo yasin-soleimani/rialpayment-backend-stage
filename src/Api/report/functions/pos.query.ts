@@ -10,28 +10,23 @@ export function posQueryBuiler(getInfo: ReportApiDto, withCards = false, cards =
 
   if (!getInfo.terminal || isEmpty(getInfo.terminal)) throw new UserCustomException('ترمینال نامعتبر');
 
+  const isAllTerminal = getInfo.terminal === '0';
+  const isAllMerchant = getInfo.merchant === '0';
+
   if (withCards) {
     tmp.push({
       cardref: { $in: cards },
     });
   }
-  if (getInfo.terminal == '0') {
+  if (!isAllMerchant && isAllTerminal) {
     tmp.push({
       merchant: getInfo.merchant,
     });
-  } else {
+  } else if(!isAllTerminal) {
     tmp.push({
       terminal: getInfo.terminal,
     });
   }
-
-  if (getInfo.merchant == '0') {
-    tmp.push({
-      merchant: getInfo.merchant,
-    });
-  }
-
-  console.log("tmp yasin:::", tmp);
 
   // tmp.push({
   //   type: 14
@@ -53,24 +48,27 @@ export function posQueryBuiler(getInfo: ReportApiDto, withCards = false, cards =
     });
   }
 
-  return {
+  return tmp.length > 0 ? {
     $and: tmp,
-  };
+  }: {};
 }
 
 export function posQueryAggregateBuiler(getInfo: ReportApiDto, cards = []) {
   let tmp = Array();
-  if (!getInfo.merchant || isEmpty(getInfo.merchant)) throw new UserCustomException('پذیرنده نامعتبر');
 
+  if (!getInfo.merchant || isEmpty(getInfo.merchant)) throw new UserCustomException('پذیرنده نامعتبر');
   if (!getInfo.terminal || isEmpty(getInfo.terminal)) throw new UserCustomException('ترمینال نامعتبر');
 
-  if (getInfo.terminal == '0') {
+  const isAllTerminal = getInfo.terminal === '0';
+  const isAllMerchant = getInfo.merchant === '0';
+
+  if (!isAllMerchant && isAllTerminal) {
     tmp.push({
       $match: {
         merchant: mongoose.Types.ObjectId(getInfo.merchant),
       },
     });
-  } else {
+  } else if (!isAllTerminal) {
     tmp.push({
       $match: {
         terminal: mongoose.Types.ObjectId(getInfo.terminal),
@@ -112,18 +110,24 @@ export function posQueryAggregateBuiler(getInfo: ReportApiDto, cards = []) {
         path: '$request',
         preserveNullAndEmptyArrays: false,
       },
-    },
-    {
+    }
+  );
+
+  // بررسی کنیم که آیا کارت‌ها ارسال شده‌اند یا نه
+  if (cards.length > 0) {
+    tmp.push({
       $match: {
         'request.CardNum': {
           $in: cards,
         },
       },
-    },
-    {
-      $sort: { createdAt: -1 },
-    }
-  );
+    });
+  }
 
-  return tmp;
+  tmp.push({
+    $sort: { createdAt: -1 },
+  });
+
+  // اطمینان حاصل کنیم که tmp خالی نیست
+  return tmp.length > 0 ? tmp : [{}];
 }
