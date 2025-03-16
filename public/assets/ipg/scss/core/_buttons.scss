@@ -1,0 +1,14 @@
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mdc-btn {
+  width: 48% !important;
+  height: 55px !important;
+  font-size: 1.1rem;
+}
+
+.mdc-btn-primary {
+  @include mdc-button-container-fill-color($color-primary);
+}

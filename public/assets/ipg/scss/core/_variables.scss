@@ -1,0 +1,102 @@
+/**
+* CREATED BY @mhdmhsni_icc on gitlab
+*
+* @copyright Iranian Credit Card Company
+*/
+
+// MDC ROOT VARIABLES 
+:root {
+  --mdc-theme-primary: #c0392b;
+  --mdc-theme-secondary: #00aac1;
+  --mdc-theme-background: #fff;
+  --mdc-theme-surface: #fff;
+  --mdc-theme-error: #b00020;
+  --mdc-theme-on-primary: #fff;
+  --mdc-theme-on-secondary: #fff;
+  --mdc-theme-on-surface: #000;
+  --mdc-theme-on-error: #fff;
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-dark: white;
+  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+}
+
+/*==================== COLORS ====================*/
+
+$mdc-theme-primary: red; // primary color
+$mdc-theme-secondary: darkred; // secondary color
+
+// BRAND
+$color-primary: #152a68;
+$color-secondary: #00aac1;
+$color-secondary-darker: #0088a0;
+
+// DARK
+$color-black: #000;
+$color-darker: #444;
+$color-wetasphalt: #34495e;
+$color-midnightblue: #2c3e50;
+
+// LIGHT
+$color-asbestos: #7f8c8d;
+$color-concrete: #95a5a6;
+$color-silver: #bdc3c7;
+$color-clouds: #ecf0f1;
+$color-white: #fff;
+$color-smoke: #fdfdfd;
+$color-gray: #cecece;
+
+// GREEN
+$color-turquois: #1abc9c;
+$color-greensea: #16a085;
+$color-nephritis: #27ae60;
+$color-emerald: #2ecc71;
+
+// BLUE
+$color-belizehole: #2980b9;
+$color-peterriver: #3498db;
+
+// PURPLE
+$color-wisteria: #8e44ad;
+$color-amethyst: #9b59b6;
+
+// ORANGE
+$color-pumpkin: #d35400;
+$color-carrot: #e67e22;
+$color-orange: #f39c12;
+$color-sunflower: #f1c40f;
+
+// RED
+$color-pomegranate: #c0392b;
+$color-alizarin: #c0392b;
+
+$mdc-theme-primary: #1565c0; // primary color
+$mdc-theme-secondary: yellow; // secondary color
+
+
+/* ==================== BORDER RADIUS ========== */
+$border-radius-small: 6px !default;
+$border-radius-medium: 8px !default;
+$border-radius-large: 12px !default;
+
+
+/* ==================== MARGIN & PADDING ========== */
+$margin-small: .3rem !default;
+$margin-medium: .5rem !default;
+$margin-large: 1.4rem !default;
+$margin-huge: 2rem !default;
+
+$padding-small: .3rem !default;
+$padding-medium: .5rem !default;
+$padding-large: 1rem !default;

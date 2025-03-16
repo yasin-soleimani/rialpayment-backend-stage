@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>درگاه پرداخت ریالی</title>
+  <!-- <base href="/"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="stylesheet" href="https://service.rialpayment.ir/assets/ipg/css/style.css">
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-top"></div>
+        <div class="card-header-bottom"></div>
+        <div class="company-logo">
+
+        </div>
+      </div>
+      <div class="card-content">
+
+        <!-- content left -->
+        <div class="content-left">
+          <div class="content-left-header"> اطلاعات پذیرنده </div>
+          <div class="merchant-logo">
+            <img alt="merchant-logo" src="https://core-backend.rialpayment.ir/upload/<%= logo %>">
+            <!-- <img alt="merchant-logo" src="https://service.rialpayment.ir/assets/ipg/img/no-image.jpg"> -->
+          </div>
+          <div class="merchant-title">
+            <%= title %>
+          </div>
+          <div class="transaction-amount"> مبلغ: <%= amount %> ریال </div>
+          <div class="merchant-url">
+            <%= site %>
+          </div>
+        </div>
+
+
+        <!-- content right -->
+        <div class="content-right">
+          <div class="content-right-header">
+            <div class="countdown">زمان باقی‌مانده: <span id="countdown-t"></span></div>
+            <div>اطلاعات کارت</div>
+          </div>
+
+          <form dir="rtl" class="ng-untouched ng-pristine ng-invalid" onsubmit="event.preventDefault();req(this); ">
+
+            <label>شماره کارت</label>
+            <div class="row" dir="ltr">
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="text" id="cardnumber1" class="form__field text-center" minlength="4"
+                    maxlength="4"  value="1412" disabled>
+                </div>
+              </div>
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="text" id="cardnumber2" class="form__field text-center" minlength="4"
+                    maxlength="4">
+                </div>
+              </div>
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="text" id="cardnumber3" class="form__field text-center" minlength="4"
+                    maxlength="4">
+                </div>
+              </div>
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="text" id="cardnumber4" class="form__field text-center" minlength="4"
+                    maxlength="4">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="password" id="secpass" class="form__field text-left" placeholder="رمزدوم"
+                    maxlength="12" minlength="5">
+                  <label for="secpass" class="form__label">رمز دوم</label>
+                </div>
+              </div>
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="password" id="cvv2" class="form__field text-left" placeholder=" cvv2"
+                    maxlength="4" minlength="3">
+                  <label for="password" class="form__label">cvv2</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="text" id="expirmonth" class="form__field text-center" placeholder=" ماه انقضا"
+                    maxlength="2" minlength="2">
+                  <label for="expiremonth" class="form__label">ماه انقضا</label>
+                </div>
+              </div>
+              <div class="box">
+                <div class="form__group">
+                  <input dir="ltr" type="text" id="expiryear" class="form__field text-center" placeholder=" سال انقضا"
+                    maxlength="2" minlength="2">
+                  <label for="expiryear" class="form__label"> سال انقضا</label>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="token" class="form__field" maxlength="12" value="<%=token%>">
+            <input type="hidden" id="rf" class="form__field" maxlength="12" value="<%=rf%>">
+            <input type="hidden" id="xidz" class="form__field" maxlength="12" value="<%=id%>">
+            <div class="row-captcha">
+              <div class="box-captcha">
+                <div class="form__group">
+                  <input dir="ltr" type="text" id="captcha" class="form__field text-left"
+                    placeholder="متن مطابق با تصویر را وارد نمایید" maxlength="4" minlength="4">
+                  <label for="captcha" class="form__label">متن مطابق با تصویر را وارد
+                    نمایید</label>
+                </div>
+              </div>
+              <div class="box">
+                <img src="<%= captcha %>" alt="">
+              </div>
+            </div>
+            <div class="action-buttons" dir="rtl"><button class="mdc-btn mdc-btn-primary mdc-button mdc-button--raised"
+                mdc-button="" id="submit" raised="" type="submit" tabindex="0">
+                <span>پرداخت</span></button><button class="mdc-btn mdc-button mdc-button--outlined" onclick="cnclTrax()"
+                mdc-button="" id="cancel" outlined="" type="button" tabindex="0">
+                <span>انصراف</span></button></div>
+            <div id="msg">
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+      <div class="card-footer">
+        <ul class="description">
+        <li>اين درگاه فقط مخصوص دارندگان كارت اعتباري ايرانيان مي باشد و خارج از سيستم بانكي كشور مي باشد
+لطفا از وارد كردن مشخصات كارت بانكي خود ، خوداري فرماييد.</li>
+          <li>مشتری گرامی، شما با پروتکل امن SSL به درگاه امن پرداخت ریالی به آدرس <a class="link"
+              href="https://service.rialpayment.ir/interetpaymentgateway"
+              target="_blank">https://service.rialpayment.ir/interetpaymentgateway</a>
+            متصل شده‌اید. جهت جلوگیری از سوء‌ استفاده‌های اینترنتی، آدرس مرورگر را با آدرس مذکور
+            مقایسه کنید.</li>
+          <li>از صحت نام فروشنده سایت و مبلغ خرید خود اطمینان حاصل فرمائید.</li>
+          <li>در صورت بروز مشکل فنی یا تخلف، ابتدا با پشتیبانی سایت مبدأ و در صورت عدم رفع مشکل با
+            شماره 75181000-021، سامانه تیکت <a class="link" href="http://sos.rialpayment.ir"
+              target="_blank">sos.rialpayment.ir</a> و یا ایمیل <a class="link"
+              href="mailto:info@iccmail.ir">info@iccmail.ir</a> در ارتباط باشید. </li>
+          <li>کلیه حقوق این سایت برای شرکت ریال پیمنت محفوظ می‌باشد.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var expiryMonthControl = document.getElementById('expirmonth');
+    var expiryYearControl = document.getElementById('expiryear');
+    var captchaControl = document.getElementById('captcha');
+    var cardNumber1Control = document.getElementById('cardnumber1');
+    var cardNumber2Control = document.getElementById('cardnumber2');
+    var cardNumber3Control = document.getElementById('cardnumber3');
+    var cardNumber4Control = document.getElementById('cardnumber4');
+    var secPassControl = document.getElementById('secpass');
+    var cvv2Control = document.getElementById('cvv2');
+    var rfControl = document.getElementById('rf');
+    var tokenControl = document.getElementById('token');
+    var id = document.getElementById('xidz').value;
+
+    window.addEventListener('load', (event) => {
+      cardNumber1Control.focus();
+    });
+
+    expiryMonthControl.addEventListener('input', (event) => {
+      if (event.target.value.length === 2) {
+        expiryYearControl.focus();
+      }
+    });
+
+    expiryYearControl.addEventListener('input', (event) => {
+      if (event.target.value.length === 2) {
+        captchaControl.focus();
+      }
+    });
+
+    cardNumber1Control.addEventListener('input', (event) => {
+      if (event.target.value.length === 4) {
+        cardNumber2Control.focus();
+      }
+    });
+
+    cardNumber2Control.addEventListener('input', (event) => {
+      if (event.target.value.length === 4) {
+        cardNumber3Control.focus();
+      }
+    });
+
+    cardNumber3Control.addEventListener('input', (event) => {
+      if (event.target.value.length === 4) {
+        cardNumber4Control.focus();
+      }
+    });
+
+    cardNumber4Control.addEventListener('input', (event) => {
+      if (event.target.value.length === 4) {
+        secPassControl.focus();
+      }
+    });
+
+    secPassControl.addEventListener('input', (event) => {
+      if (event.target.value.length === 12) {
+        cvv2Control.focus();
+      }
+    });
+
+    cvv2Control.addEventListener('input', (event) => {
+      if (event.target.value.length === 4) {
+        expiryMonthControl.focus();
+      }
+    });
+
+    function ReplaceDigit(number) {
+      const arrayOfDigits = number.split('');
+
+      for (let index = 0; index < arrayOfDigits.length; index++) {
+        const digit = arrayOfDigits[index];
+        switch (digit) {
+          case '۱': arrayOfDigits[index] = 1; break;
+          case '۲': arrayOfDigits[index] = 2; break;
+          case '۳': arrayOfDigits[index] = 3; break;
+          case '۴':
+          case '٤':
+            arrayOfDigits[index] = 4; break;
+          case '۵':
+          case '٥':
+            arrayOfDigits[index] = 5; break;
+          case '۶':
+          case '٦':
+            arrayOfDigits[index] = 6; break;
+          case '۷': arrayOfDigits[index] = 7; break;
+          case '۸': arrayOfDigits[index] = 8; break;
+          case '۹': arrayOfDigits[index] = 9; break;
+          case '۰': arrayOfDigits[index] = 0; break;
+          default: arrayOfDigits[index] = digit;
+        }
+      }
+
+      return arrayOfDigits.join('');
+    }
+
+    function req(form) {
+      document.getElementById("submit").disabled = true;
+      document.getElementById("cancel").disabled = true;
+
+      // var cardnumber = cardNumber1Control.value + cardNumber2Control.value + cardNumber3Control.value + cardNumber4Control.value;
+      // var pin = secPassControl.value;
+      // var cvv2 = cvv2Control.value;
+      // var expire = expiryYearControl.value + '/' + expiryMonthControl.value;
+      // var captcha = captchaControl.value;
+
+      var cardnumber = ReplaceDigit(cardNumber1Control.value + cardNumber2Control.value + cardNumber3Control.value + cardNumber4Control.value);
+      var pin = ReplaceDigit(secPassControl.value);
+      var cvv2 = ReplaceDigit(cvv2Control.value);
+      var expire = ReplaceDigit(expiryYearControl.value) + '/' + ReplaceDigit(expiryMonthControl.value);
+      var captchaValue = ReplaceDigit(captchaControl.value);
+
+      var rf = rfControl.value;
+      var token = tokenControl.value;
+
+      var params = 'cardno=' + cardnumber + '&pin=' + pin + '&cvv2=' + cvv2 + '&expire=' + expire + '&token=' + token + '&rf=' + rf + '&id=' + id + '&captcha=' + captchaValue;
+      var url = 'https://service.rialpayment.ir/internetpaymentgateway/payment';
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        // do something to response
+        const pars = JSON.parse(this.responseText);
+        if (pars.success === true) {
+          var elem = document.getElementById("notif");
+          if (elem != null) elem.parentNode.removeChild(elem);
+
+          var div = document.createElement('content');
+
+          div.className = 'row';
+
+          div.innerHTML =
+            `<div id="notif" class="successx">
+  ` + pars.message + `
+</div>`;
+
+          document.getElementById('msg').appendChild(div);
+          window.location = "https://service.rialpayment.ir/internetpaymentgateway/result/?token=" + token;
+
+        } else {
+          var elem = document.getElementById("notif");
+          if (elem != null) elem.parentNode.removeChild(elem);
+
+          var div = document.createElement('content');
+
+          div.className = 'row';
+
+          div.innerHTML =
+            `<div id="notif" class="alertx">
+  ` + pars.message + `
+</div>`;
+
+          document.getElementById('msg').appendChild(div);
+          setInterval(function () {
+            var elem = document.getElementById("notif");
+            if (elem != null) elem.parentNode.removeChild(elem);
+          }, 5000);
+          document.getElementById("submit").disabled = false;
+          document.getElementById("cancel").disabled = false;
+        }
+      };
+      xhr.send(params);
+    }
+    function cnclTrax(form) {
+      document.getElementById("submit").disabled = true;
+      document.getElementById("cancel").disabled = true;
+
+      var cardnumber = cardNumber1Control.value + cardNumber2Control.value + cardNumber3Control.value + cardNumber4Control.value;
+      var pin = secPassControl.value;
+      var cvv2 = cvv2Control.value;
+      var rf = rfControl.value;
+      var expire = expiryYearControl.value + '/' + expiryMonthControl.value;
+      var token = tokenControl.value;
+
+      var params = 'token=' + token + '&rf=' + rf;
+      var url = 'https://service.rialpayment.ir/internetpaymentgateway/cancel';
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        // do something to response
+        const pars = JSON.parse(this.responseText);
+        if (pars.success === true) {
+          var elem = document.getElementById("notif");
+          if (elem != null) elem.parentNode.removeChild(elem);
+
+          var div = document.createElement('content');
+
+          div.className = 'row';
+
+          div.innerHTML =
+            `<div id="notif" class="alertx">
+  تراکنش لغو شد
+</div>`;
+
+          document.getElementById('msg').appendChild(div);
+          window.location = "https://service.rialpayment.ir/internetpaymentgateway/result/?token=" + token;
+
+        } else {
+          var elem = document.getElementById("notif");
+          if (elem != null) elem.parentNode.removeChild(elem);
+
+          var div = document.createElement('content');
+
+          div.className = 'row';
+
+          div.innerHTML =
+            `<div id="notif" class="alertx">
+  ` + pars.message + `
+</div>`;
+
+          document.getElementById('msg').appendChild(div);
+          setInterval(function () {
+            var elem = document.getElementById("notif");
+            if (elem != null) elem.parentNode.removeChild(elem);
+          }, 5000);
+          document.getElementById("submit").disabled = false;
+          document.getElementById("cancel").disabled = false;
+
+        }
+      };
+      xhr.send(params);
+    }
+
+    var countDownDateX = new Date();
+    var countDownDate2 = countDownDateX.setTime(countDownDateX.getTime() + 10 * 60000);
+    var countDownDate = new Date(countDownDate2)
+    var interval = setInterval(function () {
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+      if (distance < 0) {
+        cnclTrax();
+        clearInterval(interval);
+      }
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("countdown-t").innerHTML = seconds + " : " + minutes;
+    }, 1000);
+  </script>
+</body>
+
+</html>

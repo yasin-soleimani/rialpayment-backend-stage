@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./assets/js/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="./assets/js/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <script src="./assets/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="./assets/js/chart.js"></script>
+  <script src="./assets/js/chartjs-plugin-piechart-outlabels.min.js"></script>
+  <!-- <script src="./assets/js/script.js"></script> -->
+  <script>
+    Chart.defaults.global.defaultFontFamily = 'IRANSans';
+
+const COLORS = [
+  '#e74c3c',
+  '#e67e22',
+  '#f1c40f',
+  '#1abc9c',
+  '#2ecc71',
+  '#3498db',
+  '#9b59b6',
+  '#8e44ad',
+  '#2980b9',
+  '#27ae60',
+  '#16a085',
+  '#f39c12',
+  '#d35400',
+  '#c0392b'
+];
+
+const DOUGHNUT_OPTIONS = {
+  layout: {
+    padding: 100
+  },
+  plugins: {
+    legend: false,
+    padding: 100,
+    outlabels: {
+      text: '%l %p',
+      color: 'white',
+      stretch: 30,
+      borderRadius: 8,
+      padding: 8,
+      font: {
+        resizable: true,
+        minSize: 10,
+        maxSize: 14
+      }
+    }
+  },
+  responsive: true,
+  aspectRatio: 2
+}
+
+function initCharts() {
+  console.log('did load')
+  initSuccessChart();
+  initFailureChart();
+  initAmountBasedChart();
+};
+
+
+function initSuccessChart() {
+  var ctx = document.getElementById('successChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ["بهگزین", "بیمه سینا", "سیاحتی پارسیان", "ریال پیمنت", "باغ وحش ارم"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: COLORS,
+          data: [2478, 5267, 734, 784, 433]
+        }
+      ]
+    },
+    options: DOUGHNUT_OPTIONS
+  });
+}
+
+function initFailureChart() {
+  var ctx = document.getElementById('failureChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ["بهگزین", "بیمه سینا", "سیاحتی پارسیان", "ریال پیمنت", "باغ وحش ارم"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: COLORS,
+          data: [2342, 786, 23, 465, 532]
+        }
+      ]
+    },
+    options: DOUGHNUT_OPTIONS
+  });
+}
+
+function initAmountBasedChart() {
+  var ctx = document.getElementById('amountBasedChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ["بهگزین", "بیمه سینا", "سیاحتی پارسیان", "ریال پیمنت", "باغ وحش ارم"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: COLORS,
+          data: [954, 356, 643, 2345, 3434]
+        }
+      ]
+    },
+    options: DOUGHNUT_OPTIONS
+  });
+}
+
+  </script>
+  <style>
+    .container {
+      width: 200px;
+      display: block;
+    }
+  </style>
+</head>
+
+<body onload="initCharts()" class="body" dir="rtl">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              توضیحات کلی
+            </div>
+          </div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div>
+                  تعداد کل کارت‌ها: 
+                </div>
+                <div><b>
+                  200
+                </b></div>
+              </li>
+              <li class="list-group-item">
+                <div>
+                  تعداد کارت‌های استفاده شده: 
+                </div>
+                <div><b>
+                  128
+                </b></div>
+              </li>
+              <li class="list-group-item">
+                <div>
+                  تعداد کارت‌های استفاده نشده: 
+                </div>
+                <div><b>
+                  72
+                </b></div>
+              </li>
+              <li class="list-group-item">
+                <div>
+                  بیشترین تعداد تراکنش: 
+                </div>
+                <div><b>
+                  4 تراکنش - 1399/04/23
+                </b></div>
+              </li>
+              <li class="list-group-item">
+                <div>
+                  کمترین تعداد تراکنش: 
+                </div>
+                <div><b>
+                  1 تراکنش - !!minusedtransdate
+                </b></div>
+              </li>
+              <li class="list-group-item">
+                <div>
+                  مبلغ هزینه شده تاکنون: 
+                </div>
+                <div><b>
+                  35000000 ریال
+                </b></div>
+              </li>
+              <li class="list-group-item">
+                <div>
+                  مبلغ باقی‌مانده: 
+                </div>
+                <div><b>
+                  640000000 ریال
+                </b></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              نمودار تعدادی تراکنش‌های موفق
+            </div>
+          </div>
+          <div class="card-body">
+            <canvas id="successChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              نمودار تعدادی تراکنش‌های ناموفق
+            </div>
+          </div>
+          <div class="card-body">
+            <canvas id="failureChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              نمودار مبلغی تراکنش‌های موفق
+            </div>
+          </div>
+          <div class="card-body">
+            <canvas id="amountBasedChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

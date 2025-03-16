@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link href="https://core-backend.rialpayment.ir/auth/css/argon.css" rel="stylesheet">
+  <link href="https://core-backend.rialpayment.ir/auth/css/main.css" rel="stylesheet">
+
+  <title>احراز هویت</title>
+</head>
+<body>
+  <section class="section section-shaped section-lg" >
+    <div class="container pt-lg-sd">
+        <div class="row justify-content-center">
+                <div class="col-lg-12 white boder-radius border min-height-400">
+                    <div class="row">
+                        <div class="col-lg-12 padding-20">
+                                <div class="row justify-content-center">
+                                    <img src="https://core-backend.rialpayment.ir/auth/img/brand/logo.png" style="width: 80px">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 padding-20 align-right">
+                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                        </div>
+                        <div class="col-lg-6 border-left padding-20 min-height-400">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <% if (nahab == true ) { %>
+                                        <div class="form-group">
+                                                <input type="text" placeholder="شماره کارت" class="form-control align-right"
+                                                data-toggle="tooltip" data-placement="top" id="cardnumber" title="" data-container="body" data-animation="true" data-original-title="شماره کارت بانکی"
+                                                maxlength="19">
+                                        </div>
+                                        <% } %>
+                                        <% if (nahab == true  || sitad == true ) { %>
+                                        <div class="form-group">
+                                                <input type="text" placeholder="کدملی" class="form-control align-right"
+                                                data-toggle="tooltip" data-placement="top" id="nationalcode" title="" data-container="body" data-animation="true" data-original-title="کدملی"
+                                                maxlength="10">
+                                        </div>
+                                        <% } %>
+                                        <% if (sitad == true ) { %>
+                                        <div class="form-group">
+                                                <input type="text" placeholder="تاریخ تولد" id="birthdate" onkeyup="
+                                                var v = this.value;
+                                                if (v.match(/^\d{4}$/) !== null) {
+                                                    this.value = v + '/';
+                                                } else if (v.match(/^\d{4}\/\d{2}$/) !== null) {
+                                                    this.value = v + '/';
+                                                }"
+                                            data-toggle="tooltip" data-placement="top" title="" data-container="body" data-animation="true" data-original-title="تاریخ تولد به صورت 1360/01/01"
+                                            maxlength="10" class="form-control align-right">
+                                        </div>
+                                        <% } %>
+                                        <% if (mobile == true ) { %>
+                                        <div class="form-group">
+                                                <input type="text" placeholder="موبایل" id="mobile" class="form-control align-right" 
+                                                data-toggle="tooltip" data-placement="top" title="" data-container="body" data-animation="true" data-original-title="موبایل"
+                                                maxlength="11">
+                                        </div>
+                                        <% } %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                        <div id="msg" class="padding-20">
+
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                        <button class="btn btn-1 btn-primary w100" type="button" onclick="submit()">تایید‍</button>
+                                </div>
+                                <div class="col-lg-6">
+                                        <button class="btn btn-1 btn-outline-danger w100" type="button">انصراف</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+  </section>
+  <input type="hidden" id="token" value="<%= token %>" >
+</body>
+  <!-- Core -->
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/jquery/jquery.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/popper/popper.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/headroom/headroom.min.js"></script>
+  <!-- Optional JS -->
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/onscreen/onscreen.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/nouislider/js/nouislider.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <!-- Argon JS -->
+  <script src="https://core-backend.rialpayment.ir/auth/js/argon.js?v=1.1.0"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/js/main.js?v=1.1.0"></script>
+<script >
+    function submit() {
+        var token = $('#token').val();
+        var nationalcode = $('#nationalcode').val();
+        var mobile = $('#mobile').val();
+        var tmpcardnumber = $('#cardnumber').val();
+        var tmpBirthdate = $('#birthdate').val();
+        var birthdate, xbirthdate, xcard, cardno;
+        if ( tmpBirthdate ) {
+            xbirthdate = tmpBirthdate.split('/');
+            birthdate = xbirthdate[0]+xbirthdate[1]+ xbirthdate[2];
+        }
+
+        if ( tmpcardnumber ) {
+            xcard = tmpcardnumber.split(' ');
+            cardno = xcard[0]+xcard[1]+xcard[2]+xcard[3]
+        }
+
+        var params = 'token='+ token + '&nationalcode=' + nationalcode + '&cardnumber='+cardno + '&mobile='+mobile + '&birthdate='+ birthdate ;
+      var url = 'http://localhost:3009/cancel';
+
+        var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+      xhr.onload = function () {
+    // do something to response
+        const pars = JSON.parse(this.responseText);
+        var div = document.createElement('content');
+
+        div.className = 'row';
+
+div.innerHTML =
+    `<div id="notif" class="alert alert-primary">
+`+ pars.message +`
+</div>`;
+
+document.getElementById('msg').appendChild(div);
+    if ( pars.status == 200 ) {
+        window.location = "https://service.rialpayment.ir/pay/" +token;
+    }
+      };
+    xhr.send(params);
+    }
+</script>
+</html>

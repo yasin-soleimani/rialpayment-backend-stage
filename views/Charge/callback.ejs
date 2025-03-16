@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ریال پیمنت</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://core-backend.rialpayment.ir/assets/css/ipgx.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://core-backend.rialpayment.ir/assets/callback/style.css" />
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <img src="https://core-backend.rialpayment.ir/assets/callback/assets/logo600.png" width="128" alt="">
+            </div>
+            <div class="card-body">
+                <div class="title">
+                    <p dir="rtl">
+                        <%= info.user.fullname %> پرداخت شما
+                            <% if (status=='ok' ) { %>
+                                <span style="color: limegreen;">با موفقیت انجام شد</span> و کیف پول
+                                شما شارژ گردید.
+                                <% } %>
+                                    <% if (status=='nok' ) { %>
+                                        <span style="color: crimson;">با مشکل مواجه شده است</span>
+                                        <% } %>
+                    </p>
+                </div><br>
+                <div class="subtitle">
+                    <div class="subtitle-item">
+                        <div>شماره تراکنش: </div>
+                        <div>
+                            <strong>
+                                <%= info.invoiceid %>
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="subtitle-item">
+                        <div>مبلغ: </div>
+                        <div>
+                            <strong>
+                                <%= info.amount %> ریال
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="emoji">
+                    <div>
+                        <% if (status=='ok' ) { %>
+                            <img src="https://core-backend.rialpayment.ir/assets/callback/assets/smiling.svg" width="84">
+                            <% } %>
+                                <% if (status=='nok' ) { %>
+                                    <img src="https://core-backend.rialpayment.ir/assets/callback/assets/sad.svg" width="84">
+                                    <% } %>
+                    </div>
+                </div><br><br> -->
+                <div class="card-footer">
+                    <p>جهت تکمیل فرآیند خرید کلیک کنید</p>
+                    <% if (clubPwaCallback !='' ) { %>
+                        <a class="btn" href="<%= clubPwaCallback %>">بازگشت</a>
+                        <% } else { %>
+                            <% if (info.devicetype=='mobile_google' ) { %>
+                                <a class="btn" href="app://ir.mersad.rialpayment">بازگشت</a>
+                                <% } if (info.devicetype=='mobile' ) { %>
+                                    <a class="btn" href="app://ir.mersad.rialpayment">بازگشت</a>
+                                    <% } if(info.devicetype=='pwa' ) {%>
+                                        <a class="btn" href="https://pwa.rialpayment.ir/i/home/charge-wallet">بازگشت</a>
+                                        <% } if(info.devicetype=='web' ) {%>
+                                            <a class="btn" href="https://portal.rialpayment.ir/i/wallet-charge">بازگشت</a>
+                                            <% } if(info.devicetype !='web' && info.devicetype !='mobile' &&
+                                                info.devicetype !='pwa' && info.devicetype !='mobile_google' ) {%>
+                                                <a class="btn" href="app://<%= info.devicetype %>">بازگشت</a>
+                                                <% } %>
+                                                    <% } %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

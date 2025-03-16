@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "removeComments": false,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": false,
+    "allowJs": false,
+    "rootDir": "./",
+    "baseUrl": "./../../",
+    "paths": {
+      "@vision/*": ["@vision/*"]
+    },
+    "outDir": "../../node_modules/@vision/core"
+  },
+  "include": [
+    "*.ts",
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/reflect-metadata",
+    "node_modules/@types/reflect-metadata",
+    "./**/*.spec.ts"
+  ]
+}

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>پرداخت امن ریال پیمنت</title>
+    <link rel="stylesheet" href="https://service.rialpayment.ir/assets/new-ipg/css/style.css" />
+</head>
+
+<body onload="seperate()">
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">×</span>
+                <h2 style="margin-right: 10px;">رمز پویا</h2>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 14px;">رمز یک بار مصرف برای شما ارسال گردیده است مشتری گرامی، درصورتی که از صحت
+                    اطلاعات
+                    واردشده اطمینان دارید ولی
+                    هنوز رمز دوم پویای خود را دریافت ننموده اید مجددا دکمه درخواست رمز پویا را بفشارید. در غیر اینصورت
+                    برای
+                    رفع
+                    مشکل به اپلیکیشن ریال پیمنت قسمت مدیریت کارت مراجعه فرمایید.</p>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="token" class="form__field" maxlength="12" value="<%= token %>">
+    <input type="hidden" id="rf" class="form__field" maxlength="12" value="<%= rf %>">
+    <input type="hidden" id="xidz" class="form__field" maxlength="12" value="<%= id %>">
+    <div style="background: rgb(0, 145, 145);">
+        <div class="parent-layout" dir="rtl">
+            <div class="parent-information-payment">
+                <div class="parent-form">
+                    <div class="title-form">
+                        <img src="https://service.rialpayment.ir/assets/new-ipg/assets/rialpayment-logo.svg" width="50" height="50"
+                            alt="logo" />
+                        <h3 style="color: white;
+margin-top: 15px;
+width: 100%;
+text-align: center;
+font-size: 22px;">پرداخت امن ریال پیمنت</h3>
+                    </div>
+                    <div class="form">
+                        <form autocomplete="off" id="desktop_input" onsubmit="getFormData(event)">
+                            <div class="form-item-title">
+                                <div class="text">Rial Payment</div>
+                                <div>
+                                    <span id="sec"></span> <b> : </b> <span id="min"> </span>
+                                </div>
+                            </div>
+                            <div class="form-body">
+                                <div>
+                                    <span>شماره کارت*</span>
+                                    <div style="display: flex;justify-content: space-evenly;
+                  align-items: center;direction: ltr;
+                 ">
+
+
+                                        <input onkeypress="return checkNumber(event)" name="card_number1" tabindex="1"
+                                            style="margin:0px 5px;" maxlength="4" id="cart_number1" class="small-input" value="1122" disabled
+                                            type="text" />
+
+                                        <input onkeypress="return checkNumber(event)" name="card_number2" tabindex="2"
+                                            style="margin:0px 5px;" maxlength="4" id="cart_number2"
+                                            class="small-input " />
+
+                                        <input onkeypress="return checkNumber(event)" name="card_number3"
+                                            onkeypress="SetCardNum()" tabindex="3" style="margin:0px 5px;" maxlength="4"
+                                            id="cart_number3" class="small-input  " type="tel" />
+
+                                        <input onkeypress="return checkNumber(event)" name="card_number4"
+                                            onkeypress="SetCardNum()" tabindex="4" style="margin:0px 5px;" maxlength="4"
+                                            id="cart_number4" class="small-input  " type="tel" />
+
+                                    </div>
+
+                                </div>
+                                <p style="  color: red;display: none;" id="cart_validation">شماره کارت وارد شود</p>
+
+                                <div>
+                                    <span>شماره شناسایی دوم (CVV2)*</span>
+                                    <div>
+                                        <input onkeypress="return checkNumber(event)" type="password"
+                                            onkeypress="removeSigns()" onfocusout="sendcvv2()" id="cvv2" name="cvv2"
+                                            tabindex="5" maxlength="4" class="medium-input  " type="text" />
+                                    </div>
+                                </div>
+                                <p style="color: red;display: none;" id="cvv2_validation"> cvv2 وارد شود</p>
+
+                                <div>
+                                    <span>تاریخ انقضای کارت*</span>
+                                    <div>
+                                        <input onkeypress="return checkNumber(event)" name="expireDateOne"
+                                            onfocusout="sendMonth()" tabindex="7" maxlength="2" id="expireMonth"
+                                            class="small-input  " type="text" />
+                                        <span style="font-size: 24px;">/</span>
+                                        <input onkeypress="return checkNumber(event)" name="expireDateTwo"
+                                            onfocusout="SendYear()" id="expireYear" tabindex="6" maxlength="2"
+                                            class="small-input" type="text" />
+                                    </div>
+                                </div>
+                                <p style="color: red; display: none;" id="cart_expire_date"> تاریخ انقضای کارت وارد شود
+                                </p>
+
+                                <div>
+                                    <span>کد امنیتی*</span>
+                                    <div class="captcha_container">
+                                        <input maxlength="4" id="securityCode" name="code"
+                                            onkeydown="sendSecurityCode()" tabindex="8" class="small-input"
+                                            type="text" />
+                                        <span style="font-size: 24px;visibility:hidden;">/</span>
+
+
+                                        <div tabindex="9" class="captchaButton">
+
+                                            <img style="
+                        color: #33333366;
+                        text-align: center;
+                        margin: auto;
+                        width: 75%;
+                        vertical-align: middle;
+                      " id="CaptchaImage" src="<%= captcha %>" alt="">
+
+
+                                            <img id="refresh-captcha" style="transform: rotate(90deg)"
+                                                src="https://service.rialpayment.ir/assets/new-ipg/assets/refresh.png"
+                                                alt="" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <small style="color: red;display: none;" id="security_code_validation"> کد امنیتی وارد
+                                    شود </small>
+
+                                <div>
+                                    <span>رمز دوم*</span>
+                                    <div>
+                                        <input onfocusout="sendSecondPassword()" type="password" name="secondPassword"
+                                            id="secondPassword" onkeydown="sendSecurityCode()" maxlength="12"
+                                            tabindex="10" class="small-input" type="text" />
+                                        <span style="font-size: 24px;visibility:hidden;">/</span>
+
+                                        <div tabindex="11" class="captchaButton2">
+                                            <p id="myBtn" style="
+                            cursor: pointer;
+                            font-size: 12px;
+                            color: white;
+                            text-align: center;
+                            margin: auto;
+                            vertical-align: middle;
+                            padding-top: 3%;
+                            padding-bottom: 3%;
+                          " id="CaptchaImage">
+
+                                                دریافت رمز
+                                            </p>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <p style="color: red;display: none;" id="second_code_validation"> رمز دوم وارد شود </p>
+
+                                <div>
+
+                                    <span>ایمیل</span>
+                                    <div>
+                                        <input type="text" id="email_input" onfocusout="checkmail()" name="email"
+                                            tabindex="12" class="full-size" type="text" />
+                                    </div>
+
+
+                                </div>
+
+                                <p style="color: red;display: none;" id="email_validation_msg">لطفا ایمیل را به درستی
+                                    وارد
+                                    کنید</p>
+
+                                <div>
+
+                                    <span>ذخیره کارت برای استفاده های بعدی</span>
+
+
+                                    <label class="toggle">
+                                        <input name="saveCard" tabindex="10" class="toggle-checkbox" type="checkbox" />
+                                        <div tabindex="13" class="toggle-switch"></div>
+                                    </label>
+                                </div>
+                                <div class="parent-button">
+                                    <button tabindex="14" class="btn button-payment" id="submit" onclick="">
+                                        پرداخت
+                                    </button>
+                                    <button style="cursor: pointer;" tabindex="15" class="btn button-cancel"
+                                        onclick="clearInputs()" id="cancel" type="button">
+                                        انصراف
+                                    </button>
+                                </div>
+                                <div class="notif-content">
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="parent-details">
+                    <div class="card">
+                        <span class="badge"> </span>
+                        <div class="simcard">
+                            <img src="https://service.rialpayment.ir/assets/new-ipg/assets/Rectangle 26.svg"
+                                alt="simcard" />
+                        </div>
+                        <div class="card-number">
+                            <!-- 60379981 -->
+                            <span dir="ltr" id="parent-details-cart-num" style="font-size: 20px;">1122 1010 xxxx
+                                xxxx</span>
+                        </div>
+                        <div class="icc-label">
+                            <span style="color: #c8c8c8">Rialpayment</span>
+                        </div>
+                    </div>
+
+                    <div class="parent-card">
+                        <div class="box-hidden">d</div>
+
+
+                        <div class="acceptor_img">
+
+
+                            <img style="width: 120px;height: 120px;border-radius: 10px;"
+                                src="https://core-backend.rialpayment.ir/upload/<%= logo %>" alt="">
+                        </div>
+                        <div class="accinfo">
+                            <!--<div style="display: flex; margin-top: 8%;padding-top: 10%;" class="row">
+                            <span style="flex: 0 0 33.333333%; color: #a1a1a1">نام پذیرنده</span>
+
+                            :
+
+                            <label style="padding-right: 2px; flex: 0 0 33.333333%" for="">شرکت ایرانی کارت </label>
+                        </div>-->
+
+                            <div style="display: flex; margin-top: 8%;flex-wrap: wrap;padding: 0px 15px;" class="row">
+                                <span style="flex: 0 0 33.333333%; color: #a1a1a1;font-size: 16px"> پذیرنده</span>
+
+                                :
+
+                                <label style="padding-right: 2px;
+flex: 2 0 33.333333%;font-size: 17px" for="">
+                                    <%= title %>
+                                </label>
+                            </div>
+                            <!-- <div style="display: flex; margin-top: 8%;flex-wrap: wrap" class="row">
+                             <span style="flex: 0 0 33.333333%; color: #a1a1a1">شماره ترمینال</span>
+
+                             :
+
+                             <label style="padding-right: 2px; flex: 0 0 33.333333%" for="">21305610</label>
+                         </div>-->
+
+                            <div style="display: flex;flex-wrap: wrap; margin-top: 8%;padding: 0px 15px;" class="row">
+                                <span style="flex: 0 0 33.333333%; color: #a1a1a1;font-size: 16px">آدرس وب سایت</span>
+
+                                :
+
+                                <label style="padding-right: 2px; flex: 2 0 33.333333%;font-size: 17px" for="">
+                                    <%= site %>
+                                </label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div style="display: flex;width: 100%;">
+                            <div style="display: flex;justify-content: space-evenly;width: 100%;padding-top: 25px;">
+                                <p style="line-height: 37px;
+font-size: 17px;">مبلغ قابل پرداخت </p>
+                                <div style="display: flex;">
+                                    <p id="paymentValue" style="color: #1f3987;font-size: 24px">
+                                        <%= amount %>
+                                    </p> &nbsp<p style="color: #1f3987;line-height: 39px;
+font-size: 15px;">
+                                        ریال </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accinfo2">
+                <div style="display: flex; margin-top: 5%" class="row">
+                    <span style="flex: 0 0 33.333333%; color: #a1a1a1">نام پذیرنده :</span>
+
+
+                    <label style="padding-right: 2px; flex: 0 0 33.333333%" for="">21305610</label>
+                </div>
+
+                <div style="display: flex; margin-top: 8%" class="row">
+                    <span style="flex: 0 0 33.333333%; color: #a1a1a1">مبلغ :</span>
+
+
+                    <label style="padding-right: 2px; flex: 0 0 33.333333%" for="">243,500</label>
+                </div>
+                <div style="display: flex; margin-top: 8%" class="row">
+                    <span style="flex: 0 0 33.333333%; color: #a1a1a1">شماره پذیرنده :</span>
+
+
+                    <label style="padding-right: 2px; flex: 0 0 33.333333%" for="">21305610</label>
+                </div>
+                <div style="display: flex; margin-top: 8%" class="row">
+                    <span style="flex: 0 0 33.333333%; color: #a1a1a1">شماره ترمینال :
+                    </span>
+
+                    <!-- : -->
+
+                    <label style="padding-right: 2px; flex: 0 0 33.333333%" for="">21305610</label>
+                </div>
+
+                <div style="display: flex; margin-top: 8%; padding-bottom: 5%;flex-wrap: wrap;" class="row">
+                    <span style="flex: 0 0 33.333333%; color: #a1a1a1">آدرس وب سایت :</span>
+
+                    <!-- : -->
+
+                    <label style="padding-right: 2px; flex: 0 0 33.333333%" for="">www.rialpayment.ir</label>
+                </div>
+            </div>
+            <div class="parent-announcement">
+                <div class="title">
+                    <h4>راهنما و نکات:</h4>
+                </div>
+                <div style="padding: 30px; text-align: justify">
+                    <ul class="list">
+                        <li>
+                            اين درگاه فقط مخصوص ریال پیمنت مي باشد و خارج از سيستم بانكي كشور مي باشد
+                            لطفا از وارد
+                            كردن مشخصات كارت بانكي خود ، خوداري فرماييد.
+                        </li>
+
+                        <li>
+
+
+                            مشتری گرامی، شما با پروتکل امن SSL به درگاه امن پرداخت ریالی به آدرس <a
+                                href="https://service.rialpayment.ir/interetpaymentgateway">https://service.rialpayment.ir/interetpaymentgateway</a>
+                            متصل شده&zwnj;اید. جهت جلوگیری از سوء&zwnj; استفاده&zwnj;های اینترنتی، آدرس مرورگر را با
+                            آدرس
+                            مذکور مقایسه
+                            کنید.
+
+                        </li>
+                        <li>
+                            از صحت نام فروشنده سایت و مبلغ خرید خود اطمینان حاصل فرمائید.
+                        </li>
+                        <li>
+                            برای جلوگیری از افشای رمز کارت خود،حتی المقدور از صفحه کلید
+                            مجازی استفاده فرمایید.
+                        </li>
+                        <li>
+                            در صورت بروز مشکل فنی یا تخلف، ابتدا با پشتیبانی سایت مبدأ و در صورت عدم رفع
+                            مشکل با شماره 44952096-021، سامانه تیکت <a class="link" href="http://sos.rialpayment.ir"
+                                target="_blank">sos.rialpayment.ir</a> و یا ایمیل <a class="link"
+                                href="mailto:info@rialpayment.ir">info@rialpayment.ir</a> در ارتباط باشید.
+                        </li>
+                        <li>
+                            کلیه حقوق این سایت برای شرکت ریال پیمنت محفوظ می‌باشد.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 100%;" class="mobile-container">
+            <div style="display: block" class="mobile-form">
+
+                <div class="mobileCartInfo">
+
+
+                    <div class="mobile-form-title">
+                        <h3 style="margin-right: 10px;font-size: 15px;
+margin-top: 10px;">
+                            پرداختــ اینترنتـی ریال پیمنت
+                        </h3>
+                        <img style="top: 5" src="https://service.rialpayment.ir/assets/new-ipg/assets/rialpayment-logo.svg"
+                            width="50" height="50" alt="logo" />
+                    </div>
+
+                    <div class="mobile-cart-details">
+                        <div class="mobile-cart-details-first">
+                            <img style="width:50px;height:50px;border-radius: 10px;"
+                                src="https://core-backend.rialpayment.ir/upload/<%= logo %>" alt="">
+                            <!-- <span>ICC</span> -->
+
+                            <img src="https://service.rialpayment.ir/assets/new-ipg/assets/Rectangle 26.svg"
+                                alt="simcard" />
+                        </div>
+
+                        <div class="mobile-cart-details-second">
+                            <p id="mobile_panel_cart_num">xxxx - xxxx - xxxx - xxxx</p>
+                        </div>
+                        <div class="mobile-cart-details-first">
+                            <div style="display: flex">
+                                <p style="
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 19px;
+
+                    color: rgba(21, 42, 104, 0.5);
+                  ">
+                                    ریال
+                                </p>
+                                &nbsp;
+                                <p style="
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 17px;
+                    /* identical to box height */
+
+                    color: #152a68;
+                  " id="paymentValue2">
+                                    20.845.000 &nbsp;
+                                </p>
+
+                            </div>
+                            <span style="
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 14px;
+                  line-height: 22px;
+                  /* identical to box height */
+
+                  color: rgba(21, 42, 104, 0.5);
+                ">
+                                مبلغ قابل پرداخت
+                            </span>
+                        </div>
+                    </div>
+
+                    <form autocomplete="off" id="mobileForm" onsubmit="event.preventDefault();getMobileInputs(event)">
+                        <div class="mobile-cart-info">
+                            <p>*شماره کارت</p>
+                            <br />
+
+
+                            <div style="display: flex;justify-content: space-between;
+                align-items: center;direction: ltr;margin-top: 10px;
+               ">
+
+                                <input onkeydown="mobileSetCardNum()" onkeypress="return checkNumber(event)"
+                                    name="mobile_card_number1" tabindex="1" style="margin:0px 0px;" maxlength="4"
+                                    id="mobile_cart_number1" value="1122" disabled class=mobile-small-input />
+                                <input onkeydown="mobileSetCardNum()" onkeypress="return checkNumber(event)"
+                                    name="mobile_card_number2" onkeypress="mobileSetCardNum()" tabindex="2"
+                                    style="margin:0px 0px;" maxlength="4" id="mobile_cart_number2"
+                                    class="mobile-small-input" type="text" />
+                                <input onkeydown="mobileSetCardNum()" onkeypress="return checkNumber(event)"
+                                    name="mobile_card_number3" onkeypress="mobileSetCardNum()" tabindex="3"
+                                    style="margin:0px 0px;" maxlength="4" id="mobile_cart_number3"
+                                    class="mobile-small-input" type="text" />
+                                <input onkeydown="mobileSetCardNum()" onkeypress="return checkNumber(event)"
+                                    name="mobile_card_number4" onkeypress="mobileSetCardNum()" tabindex="4"
+                                    style="margin:0px 0px;" maxlength="4" id="mobile_cart_number4"
+                                    class="mobile-small-input" type="text" />
+
+                            </div>
+
+                            <p style="  color: red;display: none;" id="mobile_cart_validation">شماره کارت الزامی است</p>
+
+                        </div>
+
+                        <div class="mobile-cart-info">
+                            <p>*(CVV2) شماره شناسایی دوم </p>
+                            <br />
+                            <input onkeypress="mobilesendcvv2()" type="password" maxlength="4" name="mobile_cvv2"
+                                id="mobile_cvv2" tabindex="5" class="mobile-full-size" type="text" />
+                            <p id="mobile_cvv2_validation">(CVV2)شماره شناسایی دوم الزامی است</p>
+
+                        </div>
+
+
+                        <div class="mobileDatePicker" style="display: block;direction: rtl;  margin-right: 5%;
+        margin-left: 5%;">
+                            <p style="float: right;"> تاریخ*</p>
+
+                            <div
+                                style="display: flex;justify-content:space-between;align-items: center; width: 100%;text-align: center;">
+                                <input tabindex="7" style="width: 40%" onfocusout="mobileSendMonth()"
+                                    onkeypress="return checkNumber(event)" id="mobile_month" maxlength="2"
+                                    name="mobile_month" />
+
+                                <span style="vertical-align: middle;font-size: 25px;
+              ">/</span>
+
+
+                                <input tabindex="6" style="width: 45%;" name="mobile_year" onfocusout="mobileSendYear()"
+                                    onkeypress="return checkNumber(event)" id="mobile_year" id="mobile_year"
+                                    maxlength="2" />
+
+                            </div>
+                            <p id="mobile_date_validation">وارد کردن تاریخ انقضا الزامی است</p>
+
+                        </div>
+
+
+                        <div class="mobile-cart-info" style="display: block;direction: rtl;  margin-right: 5%;
+            margin-left: 5%;">
+                            <p>کد امنیتی*</p>
+
+                            <div style="display: flex;justify-content:space-evenly;width: 100%;">
+                                <input tabindex="10" style="width: 60%;" onfocusout="mobileSendSecurityCode()"
+                                    id="mobile_security_code" name="mobile_security_code" maxlength="5" type="text" />
+
+                                <div tabindex="11"
+                                    style="justify-content: center;
+            align-items: center;margin-right: 5%; background-color: #e8e7e7;border-radius: 10px;  display: flex;width:75%;">
+
+
+                                    <img style="width: 40%;height: 30px;" src="<%= captcha %>">
+
+                                    <img style="width: 25px;height: 25px;margin-right: 10px; cursor: pointer"
+                                        id="change-captcha"
+                                        src="https://service.rialpayment.ir/assets/new-ipg/assets/refresh.png">
+                                </div>
+                            </div>
+                            <p style="  color: red;display: none;" id="mobile_security_code_validation">وارد کردن کد
+                                امنیتی
+                                الزامی است
+                            </p>
+
+                        </div>
+
+                        <div class="mobile-cart-info" style="display: block;direction: rtl;  margin-right: 5%;
+        margin-left: 5%;">
+                            <p>رمز دوم*</p>
+
+                            <div style="display: flex;justify-content:space-evenly;width: 100%;">
+                                <input onfocusout="mobileSendSecondPassword()" onkeypress="return checkNumber(event)"
+                                    type="password" tabindex="8" style="width: 60%;" maxlength="12"
+                                    id="mobile_second_pass" name="mobile_second_pass" type="text" />
+
+                                <div tabindex="9" style="margin-right: 5%;cursor: pointer;   background: linear-gradient(270deg, #152a68 0%, #1f3987 19.97%, #1f3987 76.98%, #152a68 100%);
+                ;border-radius: 10px;  display: flex;width:75%; justify-content: center;align-items: center">
+                                    <div id="myBtn2" style="text-align:center; width: 50%;
+              vertical-align: middle;width: 50%;
+              display: table-cell;margin: auto;color: white;font-size: 12px;">دریافت رمز
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="  color: red;display: none;" id="mobile_second_pass_validation">وارد کردن رمز دوم
+                                الزامی است</p>
+
+                        </div>
+
+
+                        <div class="mobile-cart-info" style="display: block;direction: rtl;  margin-right: 5%;
+             margin-left: 5%;">
+                            <p>ایمیل*</p>
+
+                            <div style="display: flex;justify-content:space-evenly;width: 100%;">
+                                <input tabindex="12" style="width: 100%;" name="mobile_email_input"
+                                    onfocusout="mobileCheckmail()" id="mobile_email_input" type="text" />
+
+
+                            </div>
+                            <p id="mobile_email_validation">لطفا آدرس ایمیل خود را به درستی وارد
+                                نمایید</p>
+
+                        </div>
+
+
+                        <div class="mobile-cart-info" style="display: block;direction: rtl;  margin-right: 5%;
+                     margin-left: 5%;">
+                            <p></p>
+
+
+                            <div style="display: block;direction: rtl;
+                 ;display: flex;justify-content: space-between;
+                 align-items: center;">
+
+                                <p>ذخیره کارت برای استفاده های بعدی</p>
+
+                                <label tabindex="13" class="toggle">
+                                    <input name="mobileSaveCard" class="toggle-checkbox" type="checkbox">
+                                    <div class="toggle-switch"></div>
+                                </label>
+                            </div>
+
+                            <div class="notif-content">
+
+                            </div>
+
+                            <button tabindex="14" style="margin-top: 6%;" class="btn button-mobile-payment"
+                                id="msubmit">
+                                پرداخت
+                            </button>
+                            <button onclick="cnclTrax()" tabindex="15" style="margin-top: 3%;"
+                                class="btn button-cancel-mobile" type="button" id="mcancel">
+                                انصراف
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <div class="accinfo2">
+                    <!--<div style="display: flex; margin-top: 5%" class="row">
+
+                    <label style="padding-right: 2px; flex: 0 0 36.333333%" for="">شرکت ایرانی کارت </label>
+
+
+                    :
+                    <span style="flex: 0 0 33.333333%; color: #a1a1a1;">نام پذیرنده</span>
+
+                </div>-->
+
+                    <div style="display: flex; margin-top: 8%;flex-wrap: wrap" class="row">
+                        <label style="padding-right: 2px; flex: 0 0 36.333333%" for="">
+                            <%= title %>
+                        </label>
+
+                        :
+                        <span style="flex: 0 0 33.333333%; color: #a1a1a1"> پذیرنده</span>
+
+                    </div>
+                    <!--  <div style="display: flex; margin-top: 8%;flex-wrap: wrap" class="row">
+                      <label style="padding-right: 2px; flex: 0 0 36.333333%" for="">21305610</label>
+
+                      :
+
+                      <span style="flex: 0 0 33.333333%; color: #a1a1a1">شماره ترمینال</span>
+
+                  </div>-->
+
+                    <div style="display: flex;flex-wrap: wrap; margin-top: 8%;" class="row">
+
+                        <label style="padding-right: 2px; flex: 0 0 36.333333%" for="">
+                            <%= site %>
+                        </label>
+                        :
+                        <span style="flex: 0 0 33.333333%; color: #a1a1a1">آدرس وب سایت</span>
+
+                    </div>
+                </div>
+
+
+                <div class="parent-announcement2">
+                    <div style="padding-top: 1%;" class="title">
+                        <h4>راهنما و نکات:</h4>
+                    </div>
+                    <div style="text-align: justify;
+          text-justify: inter-word;padding: 10px 26px 10px 0px;">
+
+                        <ul class="list">
+                            <li>
+                                اين درگاه فقط مخصوص ریال پیمنت مي باشد و خارج از سيستم بانكي كشور مي
+                                باشد
+                                لطفا از وارد
+                                كردن مشخصات كارت بانكي خود ، خوداري فرماييد.
+                            </li>
+
+                            <li>
+
+
+                                مشتری گرامی، شما با پروتکل امن SSL به درگاه امن پرداخت ریالی به آدرس <a
+                                    href="https://service.rialpayment.ir/interetpaymentgateway">https://service.rialpayment.ir/interetpaymentgateway</a>
+                                متصل شده&zwnj;اید. جهت جلوگیری از سوء&zwnj; استفاده&zwnj;های اینترنتی، آدرس مرورگر را با
+                                آدرس
+                                مذکور مقایسه
+                                کنید.
+
+                            </li>
+                            <li>
+                                از صحت نام فروشنده سایت و مبلغ خرید خود اطمینان حاصل فرمائید.
+                            </li>
+                            <li>
+                                برای جلوگیری از افشای رمز کارت خود،حتی المقدور از صفحه کلید
+                                مجازی استفاده فرمایید.
+                            </li>
+                            <li>
+                                در صورت بروز مشکل فنی یا تخلف، ابتدا با پشتیبانی سایت مبدأ و در صورت عدم رفع
+                                مشکل با شماره 44952096-021، سامانه تیکت <a class="link" href="http://sos.rialpayment.ir"
+                                    target="_blank">sos.rialpayment.ir</a> و یا ایمیل <a class="link"
+                                    href="mailto:info@rialpayment.ir">info@rialpayment.ir</a> در ارتباط باشید.
+                            </li>
+                            <li>
+                                کلیه حقوق این سایت برای شرکت ریال پیمنت محفوظ می‌باشد.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    </div>
+
+
+    <script>
+
+    </script>
+    <script type="text/javascript" src="https://service.rialpayment.ir/assets/new-ipg/js/script.js"></script>
+
+</body>
+
+</html>

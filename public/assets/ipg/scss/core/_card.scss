@@ -1,0 +1,188 @@
+.card {
+  background: $color-smoke;
+  border-radius: $border-radius-large;
+  border: .6px solid $color-gray;
+  overflow: hidden;
+  margin: $margin-huge;
+
+  .card-header {
+    text-align: right;
+    position: relative;
+
+    .card-header-top {
+      border-top-right-radius: $border-radius-large;
+      border-top-left-radius: $border-radius-large;
+      height: 160px;
+      background: $color-primary;
+      margin-top: -70px;
+      margin-left: -50px;
+      transform: rotate(-4deg);
+    }
+
+    .card-header-bottom {
+      height: 20px;
+      background: $color-secondary;
+      transform: rotate(-4deg);
+      margin-top: 0;
+      margin-left: -50px;
+      z-index: 1;
+    }
+
+    .company-logo {
+      width: 240px;
+      z-index: 999;
+      position: absolute;
+      top: 80px;
+      left: calc(50% - 120px);
+
+      img {
+        width: 240px;
+      }
+    }
+  }
+
+  .card-content {
+    padding: $margin-medium $margin-medium;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    flex-wrap: wrap-reverse;
+
+    .content-right {
+      min-height: 200px;
+      width: 40%;
+      text-align: center;
+
+      .content-right-header {
+        width: 99% !important;
+        text-align: right !important;
+        padding: $padding-medium;
+        border-bottom: .6px solid $color-clouds;
+        color: $color-primary;
+        display: flex;
+        justify-content: space-between;
+        font-size: .9rem;
+
+        div {
+          margin-bottom: 0;
+        }
+        .countdown {
+          color: $color-secondary;
+          font-size: .85rem;
+          font-weight: bolder;
+        }
+      }
+
+      div {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .content-left {
+      min-height: 200px;
+      width: 40%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      .content-left-header {
+        width: 99% !important;
+        text-align: right !important;
+        padding: $padding-medium;
+        border-bottom: .6px solid $color-clouds;
+        color: $color-primary;
+        font-size: .9rem;
+      }
+
+      .merchant-logo {
+        width: 100%;
+        z-index: 999;
+        margin-top: $margin-medium;
+        text-align: center;
+
+        img {
+          width: 200px;
+        }
+      }
+
+      .merchant-title {
+        width: 100%;
+        font-size: 1.3rem;
+        color: $color-darker;
+        font-weight: bolder;
+        margin-bottom: $margin-medium;
+        text-align: center;
+      }
+
+      .transaction-amount {
+        width: 100%;
+        font-size: 1.7rem;
+        color: $color-secondary;
+        font-weight: bolder;
+        margin-bottom: $margin-medium;
+        text-align: center;
+      }
+
+      .merchant-url {
+        width: 100%;
+        font-size: 1.3rem;
+        color: $color-darker;
+        font-weight: bolder;
+        margin-bottom: $margin-medium;
+        text-align: center;
+      }
+    }
+  }
+
+  .card-footer {
+    border-top: .4px solid $color-clouds;
+    margin-top: $margin-large;
+  }
+}
+
+@media (min-width: 992px) {
+  .card {
+    width: 70%;
+
+    .card-header {
+      .card-header-top {
+        width: 100vw;
+      }
+
+      .card-header-bottom {
+        width: 100vw;
+      }
+
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .card {
+    width: 95%;
+    border-radius: $border-radius-small !important;
+
+    .card-header {
+
+      .card-header-top {
+        width: 120vw;
+      }
+
+      .card-header-bottom {
+        width: 120vw;
+      }
+    }
+
+    .card-content {
+      .content-right {
+        width: 100% !important;
+      }
+
+      .content-left {
+        width: 100% !important;
+      }
+    }
+  }
+}

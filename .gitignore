@@ -1,0 +1,13 @@
+npm-*
+dist
+.vscode
+.idea
+node_modules
+.scannerwork
+.sonarlint
+keys
+public/upload/*
+nodemodulesxxxxx
+src/Api/auth/functions
+src/test.js
+.env

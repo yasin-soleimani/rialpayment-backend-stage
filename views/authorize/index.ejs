@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link href="http://localhost:3005/authorize/css/argon.css" rel="stylesheet">
+  <link href="http://localhost:3005/authorize/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://localhost:3005/authorize/css/jquery.toast.css">
+  <title>سامانه احراز هویت ریال پیمنت</title>
+</head>
+<body>
+  <section class="section section-shaped section-lg" >
+    <div class="container pt-lg-sd">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="row">
+                    <input type="hidden" id="mobilestatus" value="true">
+                    <div class="col-lg-12 main">
+                            <div class="col-lg-12 in min-height-400">
+                                    <div class="col-lg-12 bg-white min-height-400 border-radius-50">
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                              <div class="row">
+                                                  <div class="col-md-12 ">
+                                                      <div class="row justify-content-center padding-top-20">
+                                                          <img class="width-100 " src="http://localhost:3005/authorize/img/brand/logo.png" alt="">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="row align-content">
+                                                <div class="col-lg-12 padding-20 ">
+                                                  <form action="" method="POST">
+                                                    <div class="row top-row">
+                                                      <div class="col-md-12">
+                                                          <div class="form-group">
+                                                              <input type="text" name="mobile" placeholder="نام کاربری" class="form-control  dltr align-center">
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <input type="password" name="password" placeholder="کلمه عبور" class="form-control  dltr align-center">
+                                                          </div>
+                                                          <input type="hidden" name="token" value="<%= token %>">
+                                                          <% if (status != 200) { %>
+                                                          <div class="form-group">
+                                                            <div class="alert alert-primary alert-dismissible fade show" role="alert" style="text-align: center;">
+                                                              <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
+                                                              <span class="alert-inner--text" ><%= message %></span>
+                                                          </div>
+                                                          <% } %>
+                                                          </div>
+                                                          <div class="row direction-ltr ">
+                                                                <div class="col-lg-12 margin-top-20">
+                                                                    <button class="btn btn-1 btn-gray width-100p border-radius-50" id="cancel" type="submit" >تایید‍</button>
+                                                                  </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                            </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+</body>
+  <!-- Core -->
+  <script src="http://localhost:3005/authorize/vendor/jquery/jquery.min.js"></script>
+  <script src="http://localhost:3005/authorize/vendor/popper/popper.min.js"></script>
+  <script src="http://localhost:3005/authorize/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="http://localhost:3005/authorize/vendor/headroom/headroom.min.js"></script>
+  <script src="http://localhost:3005/authorize/js/jquery.toast.js"></script>
+  <!-- Optional JS -->
+  <script src="http://localhost:3005/authorize/vendor/onscreen/onscreen.min.js"></script>
+  <script src="http://localhost:3005/authorize/vendor/nouislider/js/nouislider.min.js"></script>
+  <script src="http://localhost:3005/authorize/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <!-- Argon JS -->
+  <script src="http://localhost:3005/authorize/js/argon.js?v=1.1.0"></script>
+  <script src="http://localhost:3005/authorize/js/main.js?v=1.1.0"></script>
+
+</html>

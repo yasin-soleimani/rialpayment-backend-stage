@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>ریال پیمنت</title>
+    </head>
+    <body onload="postRefId">
+     <div style="width: 100%; display: flex; justify-content: center">
+        <div style="background: #e8e8e8; padding: 12px; border-radius: 12px">
+            <h3 style="text-align: center">...لطفا منتظر بمانید</h3>
+            <p style="text-align: center">به زودی به سایت پذیرنده منتقل خواهید شد.</p>
+            <p style="text-align: center"><b style="color: red">توجه:</b> لطفا از رفرش کردن صفحه تا زمان انتقال به سایت پذیرنده خودداری نمایید</p>
+
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+                <p>
+                    در صورت منتقل نشدن بر روی دکمه
+                </p>
+                <form action="<%= info.callbackurl %>" method="POST">
+                    <input type="hidden" name="terminalid" value="<%= info.terminalid %>">
+                    <input type="hidden" name="amount" value="<%= info.total %>">
+                    <input type="hidden" name="invoiceid" value="<%= info.invoiceid %>">
+                    <input type="hidden" name="respcode" value="<%= details.respcode %>">
+                    <input type="hidden" name="respmsg" value="<%= details.respmsg %>">
+                    <input type="hidden" name="payload" value="">
+                    <input type="hidden" name="ref" value="<%= info.userinvoice %>">
+                    <% if (status == 'ok') { %>
+                        <input type="hidden" name="digitalreceipt" value="<%= details.datepaid %>">
+                        <input type="hidden" name="cardnumber" value="<%= details.cardnumber %>">
+                        <input type="hidden" name="issuerbank" value="<%= details.issuerbank %>">
+
+                    <% } %>
+                    <input type="submit" name="submit" value="انتقال">
+                </form>
+                کلیک کنید
+            </div>
+        </div>
+    </div>
+            <script>
+                window.onload = function postRefId(refIdValue) {
+                    var form = document.createElement("form");
+                    form.setAttribute("method", "POST");
+                    form.setAttribute("action", "<%= info.callbackurl %>");
+                    form.setAttribute("target", "_self");
+                    var terminalField = document.createElement("input");
+                    terminalField.setAttribute("name", "terminalid");
+                    terminalField.setAttribute("value", "<%= info.terminalid %>");
+                    form.appendChild(terminalField);
+                    var amountField = document.createElement("input");
+                    amountField.setAttribute("name", "amount");
+                    amountField.setAttribute("value", "<%= info.total %>");
+                    form.appendChild(amountField);
+
+                    var invoiceField = document.createElement("input");
+                    invoiceField.setAttribute("name", "invoiceid");
+                    invoiceField.setAttribute("value", "<%= info.invoiceid %>");
+                    form.appendChild(invoiceField);
+
+                    var respcodeField = document.createElement("input");
+                    respcodeField.setAttribute("name", "respcode");
+                    respcodeField.setAttribute("value", "<%= details.respcode %>");
+                    form.appendChild(respcodeField);
+
+                    var respmsgField = document.createElement("input");
+                    respmsgField.setAttribute("name", "respmsg");
+                    respmsgField.setAttribute("value", "<%= details.respmsg %>");
+                    form.appendChild(respmsgField);
+
+                    var payloadField = document.createElement("input");
+                    payloadField.setAttribute("name", "payload");
+                    payloadField.setAttribute("value", "");
+                    form.appendChild(payloadField);
+                    var digitalreceiptField = document.createElement("input");
+                    digitalreceiptField.setAttribute("name", "ref");
+                    digitalreceiptField.setAttribute("value", "<%= info.userinvoice %>");
+                    form.appendChild(digitalreceiptField);
+                    <% if (status == 'ok') { %>
+
+                    var datepaidField = document.createElement("input");
+                    datepaidField.setAttribute("name", "digitalreceipt");
+                    datepaidField.setAttribute("value", "<%= details.datepaid %>");
+                    form.appendChild(datepaidField);
+
+
+                    var cardnumberField = document.createElement("input");
+                    cardnumberField.setAttribute("name", "cardnumber");
+                    cardnumberField.setAttribute("value", "<%= details.cardnumber %>");
+                    form.appendChild(cardnumberField);
+
+                    var issuerbankField = document.createElement("input");
+                    issuerbankField.setAttribute("name", "issuerbank");
+                    issuerbankField.setAttribute("value", "<%= details.issuerbank %>");
+                    form.appendChild(issuerbankField);
+
+                    <% } %>
+
+                    document.body.appendChild(form);
+
+                    form.submit();
+                    document.body.removeChild(form);
+                  }
+                  </script>
+    </body>
+</html>

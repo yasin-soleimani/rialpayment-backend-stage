@@ -1,0 +1,1 @@
+export * from '@vision/core/adapters/fastify-adapter';

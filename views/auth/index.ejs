@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link href="https://core-backend.rialpayment.ir/auth/css/argon.css" rel="stylesheet">
+  <link href="https://core-backend.rialpayment.ir/auth/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://core-backend.rialpayment.ir/auth/css/jquery.toast.css">
+  <title>احراز هویت</title>
+</head>
+<body>
+    <section class="section section-shaped section-lg" >
+      <div class="container pt-lg-sd">
+          <div class="row justify-content-center">
+              <div class="col-lg-5">
+                  <div class="row">
+                      <div class="col-lg-12 main">
+                              <div class="col-lg-12 in min-height-400">
+                                      <div class="col-lg-12 bg-white min-height-400 border-radius-50">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12 ">
+                                                        <div class="row justify-content-center padding-top-20">
+                      <input type="hidden" id="mobilestatus" value="<%= mobile %>">
+                                                            <img class="width-80 " src="https://core-backend.rialpayment.ir/auth/img/brand/logo.png" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row align-content">
+                                                  <div class="col-lg-12 padding-20 ">
+
+                                                    <div class="row ">
+                                                        <div class="col-md-12 ">
+                                                            <div class="col-lg-12 top-row"></div>
+                                                            <% if (nahab == true ) { %>
+                                                            <div class="form-group">
+                                                                <input type="text" placeholder="شماره کارت" class="form-control dltr align-center"
+                                                                data-toggle="tooltip" data-placement="top" id="cardnumber" title="" data-container="body"
+                                                                data-animation="true" data-original-title="شماره کارت"
+                                                                maxlength="19">
+                                                            </div>
+                                                            <% } %>
+                                                            <% if (nahab == true  || sitad == true || shahkar == true ) { %>
+                                                            <div class="form-group">
+                                                                <input type="text" placeholder="کدملی" class="form-control  dltr align-center"
+                                                                data-toggle="tooltip" data-placement="top" id="nationalcode" title="" data-container="body" data-animation="true" data-original-title="کدملی"
+                                                                maxlength="10">
+                                                            </div>
+                                                            <% } %>
+                                                            <% if (sitad == true ) { %>
+                                                            <div class="form-group">
+                                                                <input type="text" placeholder="تاریخ تولد" class="form-control  dltr align-center"
+                                                                onkeyup="
+                                                                  var v = this.value;
+                                                                  if (v.match(/^\d{4}$/) !== null) {
+                                                                      this.value = v + '/';
+                                                                  } else if (v.match(/^\d{4}\/\d{2}$/) !== null) {
+                                                                      this.value = v + '/';
+                                                                  }"
+                                                                data-toggle="tooltip" data-placement="top" id="birthdate" title="" data-container="body" data-animation="true" data-original-title="تاریخ تولد"
+                                                                maxlength="10">
+                                                            </div>
+                                                            <% } %>
+                                                            <% if (mobile == true || shahkar == true ) { %>
+                                                            <div class="form-group">
+                                                                <input type="text" placeholder="موبایل" class="form-control  dltr align-center"
+                                                                data-toggle="tooltip" data-placement="top" id="mobile" title="" data-container="body" data-animation="true" data-original-title="موبایل"
+                                                                maxlength="11">
+                                                            </div>
+                                                            <% } %>
+                                                            <div class="form-group" id="confirmMobile">
+
+                                                            </div>
+                                                            <div class="row direction-ltr ">
+
+                                                                  <div class="col-lg-12 margin-top-20">
+                                                                      <button class="btn btn-1 btn-gray width-100p border-radius-50" id="confirm" type="button" onclick="formSubmit()">تایید‍</button>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                              </div>
+                        </div>
+                        <div class="col-lg-12 " >
+                          <p style=" text-align: center; ">استفاده از خدمات این درگاه بدون احراز هویت میسر نمی باشد.</p>
+                          <p style=" text-align: center; ">پشتیبانی :‌02175181000    -  سایت :‌ <a href="https://iccpay.ir" > https://iccpay.ir</a></p>
+                          <div class="col-md-12">
+                            <ul>
+                                <li><img src="https://core-backend.rialpayment.ir/auth/img/brand/ap.png"</li>
+                                <li><img src="https://core-backend.rialpayment.ir/auth/img/brand/parsian.png"</li>
+                                <li><img src="https://core-backend.rialpayment.ir/auth/img/brand/logox.png"</li>
+                                <li><img src="https://core-backend.rialpayment.ir/auth/img/brand/shaparak.png"</li>
+                                <li><img src="https://core-backend.rialpayment.ir/auth/img/brand/samankish.png"</li>
+
+                            </ul>
+                          </div>
+                        </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+  <input type="hidden" id="token" value="<%= token %>" >
+
+</body>
+  <!-- Core -->
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/jquery/jquery.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/popper/popper.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/headroom/headroom.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/js/jquery.toast.js"></script>
+  <!-- Optional JS -->
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/onscreen/onscreen.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/nouislider/js/nouislider.min.js"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <!-- Argon JS -->
+  <script src="https://core-backend.rialpayment.ir/auth/js/argon.js?v=1.1.0"></script>
+  <script src="https://core-backend.rialpayment.ir/auth/js/main.js?v=1.1.0"></script>
+
+</html>
+

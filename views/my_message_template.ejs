@@ -1,0 +1,12 @@
+<div class="row ml-auto pull-right" style="position:absolute; top: 10px !important; right: 25px !important;">
+          <div class="alert-group" style="width:100%">
+              <% Object.keys(messages).forEach(function (type) { %>
+                <% messages[type].forEach(function (message) { %>
+              <div class="alert alert-<%= type %>  alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <%= message %>
+                </div>
+              <% }) %>
+              <% }) %>
+          </div>
+</div>

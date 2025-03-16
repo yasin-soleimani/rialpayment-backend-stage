@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>گزارش</title>
+  <style>
+    @font-face {
+      font-family: IRANSans;
+      font-style: normal;
+      font-weight: 900;
+      src: url('./assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot');
+      src: url('./assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */
+        url('./assets/fonts/woff2/IRANSansWeb(FaNum)_Black.woff2') format('woff2'),
+        /* FF39+,Chrome36+, Opera24+*/
+        url('./assets/fonts/woff/IRANSansWeb(FaNum)_Black.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('./assets/fonts/ttf/IRANSansWeb(FaNum)_Black.ttf') format('truetype');
+    }
+    * {
+      font-family: IRANSans;
+    }
+    .container {
+      width: 575px;
+      border: 1px solid #bebebe;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #f7f7f7;
+    }
+
+    .line {
+      direction: rtl;
+      text-align: right;
+      background-color: #f3f3f3;
+      padding: 10px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img src="./assets/img/logo.png" width="70" style="display: block; margin: 0 auto;">
+    <h3 style="width: 100%; text-align: center;">سامانه روان</h3>
+
+    <div class="line">
+      گیرنده : !!rcvname
+    </div>
+    <div class="line">
+      حساب مقصد : !!rcvaccount
+    </div>
+    <div class="line">
+      کد رهگیری : !!ref
+    </div>
+    <div class="line">
+      مبلغ : !!amount
+    </div>
+    <div class="line">
+      تاریخ : !!date
+    </div>
+    <div class="line">
+      ساعت : !!time
+    </div>
+    <div class="line">
+      توضیحات : !!description
+    </div>
+  </div>
+</body>
+
+</html>

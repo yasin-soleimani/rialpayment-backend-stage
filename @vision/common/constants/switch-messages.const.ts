@@ -1,0 +1,21 @@
+export const SwitchMessages = {
+  userNotFount : 1,
+  invalidMerchant: 1,
+  disableTerminal: 2,
+  invalidAccount : 3,
+  invalidCardNumber: 4,
+  disableCard: 5,
+  cardExpired: 6,
+  invalidTrans: 9,
+  internalError: 10,
+  notEnoughMoney : 11,
+  invalidPin: 12,
+  invalidServiceUserPass: 13,
+  invalidIp: 14 ,
+  duplicateTrans: 15,
+  invalidTransType: 16,
+  confirm: 17,
+  reverse: 18,
+  notFound: 19,
+  success: 20
+}

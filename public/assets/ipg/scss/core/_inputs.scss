@@ -1,0 +1,27 @@
+// MDC DEFAULT CLASSES
+.mdc-text-field__input {
+  text-align: left  ;
+}
+
+.mdc-floating-label {
+  font-size: .9rem !important;
+  font-family: IRANSans;
+}
+
+.mdc-text-field + .mdc-text-field-helper-line {
+  height: 1em;
+}
+
+// CUSTOM CLASSES
+.mdc-input {
+  width: 100% !important;
+  border-width: .6px !important;
+  text-align: center !important;
+}
+
+.mdc-input-primary {
+  @include mdc-text-field-ink-color($color-primary);
+  @include mdc-text-field-label-color($color-primary);
+  @include mdc-text-field-caret-color($color-primary);
+  @include mdc-text-field-focused-outline-color($color-primary);
+}

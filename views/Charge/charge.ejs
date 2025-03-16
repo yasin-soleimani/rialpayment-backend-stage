@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>ریال پیمنت</title>
+    </head>
+    <body onload="postRefId">
+        <script>
+        window.onload = function postRefId(refIdValue) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "POST");
+            form.setAttribute("action", "https://sep.shaparak.ir/payment.aspx");
+            form.setAttribute("target", "_self");
+            var terminalField = document.createElement("input");
+            terminalField.setAttribute("name", "MID");
+            terminalField.setAttribute("value", "31069871");
+            form.appendChild(terminalField);
+            var amountField = document.createElement("input");
+            amountField.setAttribute("name", "Amount");
+            amountField.setAttribute("value", "<%= amount %>");
+            form.appendChild(amountField);
+            var callbackField = document.createElement("input");
+            callbackField.setAttribute("name", "RedirectURL");
+            callbackField.setAttribute("value", "<%= callbackurl %>");
+            form.appendChild(callbackField);
+            var invoiceField = document.createElement("input");
+            invoiceField.setAttribute("name", "ResNum");
+            invoiceField.setAttribute("value", "<%= invoiceid %>");
+            form.appendChild(invoiceField);
+            var payloadField = document.createElement("input");
+            payloadField.setAttribute("name", "Payload");
+            payloadField.setAttribute("value", "<%= payload %>");
+            form.appendChild(payloadField);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+          }
+          </script>
+    </body>
+</html>

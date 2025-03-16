@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fa">
+
+<head>
+    <% include static/head.ejs %>
+
+    <title>ریال پیمنت | Rial Payment</title>
+</head>
+
+<body class="rtl">
+
+<div class="container container-MD ">
+
+    <div class="row align-items-center justify-content-center center-block">
+        <div class="col-md-12 padding-none">
+            <div class="card padding-none cn-border">
+                <div class="card-body padding-none box-shadow">
+                    <div class="row no-margin">
+                        <input id="terminalid" type="hidden" value="<%= terminalid %>">
+                        <input id="invoiceid" type="hidden" value="<%= invoiceid %>">
+                        <div class="col-md-6  py-2 right-border">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-md-8 padding-2">
+                                    <div class="row margin-top-120">
+                                        <div class="col-md-12">
+                                            <p>یکی از روش های پرداخت زیر را انتخاب نمایید</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 margin-top-20">
+                                            <a href="#" id="paycredit" class="btn btn-success width-100">کارت اعتباری یا کیف پول</a>
+                                        </div>
+                                        <div class="col-md-12 margin-top-20 ">
+                                            <a href="#" class="btn btn-success width-100" id="payshaparak">کارت شتابی</a>
+                                        </div>
+                                        <div class="col-md-12 margin-top-20">
+                                            <a href="#" class="btn btn-success width-100 disabled" disabled>ارز دیجیتال دریک</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 bg-violet tbl-cell py-2 left-border">
+                            <div class="row justify-content-center align-items-centers">
+
+                                <div class="col-md-5 logo-padding">
+
+                                </div>
+                            </div>
+                            <div class="row justify-content-center align-items-centers padding-top-1">
+                                <h4>درگاه پرداخت اینترنتی</h4>
+                            </div>
+                            <div class="row padding-1">
+                                <h5>نام پذیرنده</h5>
+                                <span><%= title %></span>
+                                <hr />
+                                <h5>مبلغ</h5>
+                                <span><%= amount %> ریال</span>
+                                <hr />
+                                <h5>تلفن :</h5>
+                                <span>۱۰۰۰ ۷۵۱۸ - ۰۲۱</span>
+                                <hr />
+                                <h5>پشتیبانی :</h5>
+                                <span><a href="http://sos.btic.ir/">http://sos.btic.ir</a></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <p class="w-100" style="text-align:center">
+        کلیه حقوق مادی و معنوی محفوظ و متعلق به ریال پیمنت می باشد
+    </p>
+</div>
+</body>
+
+<% include static/footer.ejs %>
+
+</html>

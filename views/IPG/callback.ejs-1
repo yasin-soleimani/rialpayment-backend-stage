@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>ریال پیمنت</title>
+    </head>
+    <body onload="postRefId">
+            <script>
+                window.onload = function postRefId(refIdValue) {
+                    var form = document.createElement("form");
+                    form.setAttribute("method", "POST");
+                    form.setAttribute("action", "<%= info.callbackurl %>");
+                    form.setAttribute("target", "_self");
+                    var terminalField = document.createElement("input");
+                    terminalField.setAttribute("name", "terminalid");
+                    terminalField.setAttribute("value", "<%= info.terminalid %>");
+                    form.appendChild(terminalField);
+                    var amountField = document.createElement("input");
+                    amountField.setAttribute("name", "amount");
+                    amountField.setAttribute("value", "<%= info.total %>");
+                    form.appendChild(amountField);
+
+                    var invoiceField = document.createElement("input");
+                    invoiceField.setAttribute("name", "invoiceid");
+                    invoiceField.setAttribute("value", "<%= info.invoiceid %>");
+                    form.appendChild(invoiceField);
+
+                    var respcodeField = document.createElement("input");
+                    respcodeField.setAttribute("name", "respcode");
+                    respcodeField.setAttribute("value", "<%= details.respcode %>");
+                    form.appendChild(respcodeField);
+
+                    var respmsgField = document.createElement("input");
+                    respmsgField.setAttribute("name", "respmsg");
+                    respmsgField.setAttribute("value", "<%= details.respmsg %>");
+                    form.appendChild(respmsgField);
+
+                    var payloadField = document.createElement("input");
+                    payloadField.setAttribute("name", "payload");
+                    payloadField.setAttribute("value", "");
+                    form.appendChild(payloadField);
+                    var digitalreceiptField = document.createElement("input");
+                    digitalreceiptField.setAttribute("name", "ref");
+                    digitalreceiptField.setAttribute("value", "<%= info.userinvoice %>");
+                    form.appendChild(digitalreceiptField);
+                    <% if (status == 'ok') { %>
+
+                    var datepaidField = document.createElement("input");
+                    datepaidField.setAttribute("name", "digitalreceipt");
+                    datepaidField.setAttribute("value", "<%= details.datepaid %>");
+                    form.appendChild(datepaidField);
+
+
+                    var cardnumberField = document.createElement("input");
+                    cardnumberField.setAttribute("name", "cardnumber");
+                    cardnumberField.setAttribute("value", "<%= details.cardnumber %>");
+                    form.appendChild(cardnumberField);
+
+                    var issuerbankField = document.createElement("input");
+                    issuerbankField.setAttribute("name", "issuerbank");
+                    issuerbankField.setAttribute("value", "<%= details.issuerbank %>");
+                    form.appendChild(issuerbankField);
+
+                    <% } %>
+
+                    document.body.appendChild(form);
+
+                    form.submit();
+                    document.body.removeChild(form);
+                  }
+                  </script>
+    </body>
+</html>

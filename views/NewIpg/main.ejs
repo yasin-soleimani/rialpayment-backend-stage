@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+  <meta charset="UTF-8">
+  <title>درگاه امن پرداخت ریال پیمنت</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="http://localhost:3005/assets/css/ipgx.css">
+</head>
+
+<body>
+  <div class="container">
+    <% if (status == '200') { %>
+      <% include  success %>
+    <% } %>
+    <% if (status != '200') { %>
+      <% include  faild %>
+    <% } %>  
+  </div>
+  <div class="toast-message">
+    <span class="close"></span>
+    <div class="message">
+
+    </div>
+  </div>
+  <script type="text/javascript" src="  https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://localhost:3005/assets/js/zxing.min.js"></script>
+
+  <script type="text/javascript" src="http://localhost:3005/assets/js/socketio.js"></script>
+  <script src="http://localhost:3005/assets/js/main.js"></script>
+  <!-- <script type="text/javascript" src="../js/zxing.min.js"></script> -->
+
+
+</body>
+
+</html>

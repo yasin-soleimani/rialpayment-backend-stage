@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>درگاه پرداخت ریالی</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="stylesheet" href="http://192.168.0.199:5522/assets/ipg/css/style.css">
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-top"></div>
+        <div class="card-header-bottom"></div>
+        <div class="company-logo">
+          <img alt="" src="http://192.168.0.199:5522/assets/ipg/img/icc-logo.png">
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="content-left">
+          <div class="content-left-header"> اطلاعات پذیرنده </div>
+          <div class="merchant-logo">
+            <img alt="merchant-logo" src=>
+          </div>
+          <div class="merchant-title"> <%= title %> </div>
+          <div class="transaction-amount"> مبلغ: <%= amount %> ریال </div>
+          <div class="merchant-url"> <%= site  %> </div>
+        </div>
+        <div class="content-right">
+          <div class="content-right-header">
+            <div class="countdown">زمان باقی‌مانده: <span id="countdown-t"></span></div>
+            <div>اطلاعات کارت</div>
+          </div>
+          <form novalidate="" class="ng-untouched ng-pristine ng-invalid" onsubmit="event.preventDefault();req(); ">
+            <div>
+              <div class="form__group">
+                <input type="text" id="cardnumber" class="form__field" placeholder="شماره کارت ">
+                <label for="cardnumber" class="form__label"> شماره کارت</label>
+              </div>
+            </div>
+            <div>
+              <div class="row">
+                <div class="box">
+                  <div class="form__group">
+                    <input type="password" id="secpass" class="form__field" placeholder="رمزدوم" maxlength="12"
+                      minlength="5">
+                    <label for="secpass" class="form__label">رمز دوم</label>
+                  </div>
+                </div>
+                <div class="box"  >
+                  <div class="form__group">
+                    <input type="password" id="cvv2" class="form__field" placeholder=" cvv2" maxlength="4"
+                      minlength="3">
+                    <label for="password" class="form__label">cvv2</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <div>
+                <div class="row">
+                  <div class="box">
+                    <div class="form__group">
+                      <input type="text" id="expirmonth" class="form__field" placeholder=" ماه انقضا" maxlength="2"
+                        minlength="2">
+                      <label for="expiremonth" class="form__label">ماه انقضا</label>
+                    </div>
+                  </div>
+                  <div class="box"  >
+                    <div class="form__group">
+                      <input type="text" id="expiryear" class="form__field" placeholder=" سال انقضا" maxlength="2"
+                        minlength="2">
+                      <label for="expiryear" class="form__label"> سال انقضا</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                  <input type="hidden" id="token" class="form__field" maxlength="12" value="<%=token%>">
+                  <input type="hidden" id="rf" class="form__field" maxlength="12" value="<%=rf%>">
+            </div>
+            <div>
+                <div class="row-captcha">
+                  <div class="box">
+                      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAoCAYAAAAIeF9DAAAABmJLR0QA/wD/AP+gvaeTAAAD90lEQVRoge3aX4hVVRTH8c94LZssZdI0LLKGLMpqKKMyIoLACAlJsiLIwofmpQh6yLeyZCATqqfooT8PQhFU9MeispdegsJRizJLM6R/Y2aJ/bFSmx7Wvty54x3SO/vMvTrnC5t79pkzv7PO2mfvvfbah5KSkpKSkpKSkpKSkpJ2pYJzcVWRN5lYpPhRzDT04KJUenA+duIdfFjUjTuKEj5KOE689RdgLual42nYhs3ox+fYiN1FGzSeGmSWQx1/Hn5S7/jNqQy2wsgiG2Qy/hhyfBNm4Eu8iwMF3fd4zFFz+lxcLnrDcMf3Y19BdjRFEQ1SwWrcgIvFGPymeEOr7MB9eL0J/QtxM07Hn2Jc/1c4fx66sV2949fjxybudcywTnT5u4UjBsVE+CDeSvUBdB2m3lRcg/eF8weHlAN4FktFb6jkeohjiQXCWX+n33Xqe+MtwnnDmZjOL8EK0bO+xh58l7R24gGciUtxfREP0CqKmkMqogdMT/WVoncMpUv9BDtXhJeNJtkvxDA0O13zaUF2t5yi1iEH8REWpvoy/I5ThOPno1OEkv2prMEGMS80Ymr6/WXY+Q4xT7W6kYYGMW3DLNyI5dikfqwfFBHNvnR8UEzQh8vL6f924Ak8hpfwfTp/dpYnOHIqeBxfiQivLbgav+EbvIE+PCoctVbMB5tELxkQE/w9jqyHnqoWLAwv23Dl6B+jaap2LWuhDXVMUhtSqlwijMw9lPSoRW4DuF3rI6tqEFNYSiUHs4WRP2fWfT7pbsQZmbWbpYJdIiSf0WJbRuRk4bi/MmrelTS3Y2ZG3RysFbbd2mpDRqJDGLg/k95MsR7Zj8syaXbhfjwlMgdTRqH1kHjevgx2ZeWkIcc5G+SZpLcqk945+EF9cPCtGGqbYWHSeC2LdZnoEOuP3lTP1SDdSWe3Q4OHZnlb2PdI0lyV6q82qVcNYjZksS4jZ2GrWhfO0SCrk9bKDFpV9iTNzlSfkuq7mtSrBjFtmcQ8DZ+ItUiO9MwVeFLkr3LxmXDg/FS/1uje8GoQs3fUlhVEl4jLn8aEFtvSiDuEA38Vi9m9qb6kSb1qEPNPFusKYjLew4tig6jduE0tg9CPxaPUyxnEFMYkvCLi9M7/ufZop+0a5ATx0cBwKngOHxhdrN/utF2DXCc2khplXjtElna9SBSWjBG9IuwdKaezXGw4tUsealzQh4/FpN6Ie0U+as6YWTTO6RAfHqw18p7HUjG89YyVUeOdisjrrDHy4nCRWNkW+r1sSY0TxeLw4RH+vgh3io2mBWNl1HhnOraILdvhrBB74lvESrm3wTUlBdAtHN9oJTxB7Mm/ID582Cr2Jtp2561I/gO8UfTDvwF8OwAAAABJRU5ErkJggg==" alt="">
+                  </div>
+                  <div class="box-captcha" >
+                    <div class="form__group">
+                      <input type="text" id="captcha" class="form__field" placeholder="متن مطابق با تصویر را وارد نمایید" maxlength="4"
+                        minlength="4">
+                      <label for="captcha" class="form__label">متن مطابق با تصویر را وارد نمایید</label>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="action-buttons" dir="rtl"><button class="mdc-btn mdc-btn-primary mdc-button mdc-button--raised"
+                mdc-button="" id="submit" raised="" type="submit" tabindex="0">
+                <span>پرداخت</span></button><button class="mdc-btn mdc-button mdc-button--outlined" onclick="cncl()"
+                mdc-button="" id="cancel" outlined="" type="button" tabindex="0">
+                <span>انصراف</span></button></div>
+            <div id="msg">
+
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card-footer">
+        <ul class="description">
+          <li>مشتری گرامی، شما با پروتکل امن SSL به درگاه امن پرداخت ریالی به آدرس <a class="link"
+              href="https://service.rialpayment.ir/interetpaymentgateway"
+              target="_blank">https://service.rialpayment.ir/interetpaymentgateway</a>
+            متصل شده‌اید. جهت جلوگیری از سوء‌ استفاده‌های اینترنتی، آدرس مرورگر را با آدرس مذکور مقایسه کنید.</li>
+          <li>از صحت نام فروشنده سایت و مبلغ خرید خود اطمینان حاصل فرمائید.</li>
+          <li>در صورت بروز مشکل فنی یا تخلف، ابتدا با پشتیبانی سایت مبدأ و در صورت عدم رفع مشکل با
+            شماره 75181000-021، سامانه تیکت <a class="link" href="http://sos.rialpayment.ir"
+              target="_blank">sos.rialpayment.ir</a> و یا ایمیل <a class="link"
+              href="mailto:info@iccmail.ir">info@iccmail.ir</a> در ارتباط باشید. </li>
+          <li>کلیه حقوق این سایت برای شرکت ریال پیمنت محفوظ می‌باشد.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script>
+    function req() {
+      document.getElementById("submit").disabled = true;
+      document.getElementById("cancel").disabled = true;
+
+      var cardnumber = document.getElementById('cardnumber').value;
+      var pin = document.getElementById('secpass').value;
+      var cvv2 = document.getElementById('cvv2').value;
+      var rf = document.getElementById('rf').value;
+      var expire = document.getElementById('expiryear').value +'/'+ document.getElementById('expirmonth').value ;
+      var token = document.getElementById('token').value;
+
+      var params = 'cardno=' + cardnumber + '&pin=' + pin + '&cvv2=' + cvv2  + '&expire=' + expire + '&token=' + token + '&rf=' + rf;
+      var url = 'http://192.168.0.199:5522/internetpaymentgateway/payment';
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        // do something to response
+        const pars = JSON.parse(this.responseText);
+        if (pars.success === true) {
+          var elem = document.getElementById("notif");
+          if (elem != null) elem.parentNode.removeChild(elem);
+
+          var div = document.createElement('content');
+
+          div.className = 'row';
+
+          div.innerHTML =
+            `<div id="notif" class="successx">
+  ` + pars.message + `
+</div>`;
+
+          document.getElementById('msg').appendChild(div);
+          window.location = "http://192.168.0.199:5522/internetpaymentgateway/result/?token=" + token;
+
+        } else {
+          var elem = document.getElementById("notif");
+          if (elem != null) elem.parentNode.removeChild(elem);
+
+          var div = document.createElement('content');
+
+          div.className = 'row';
+
+          div.innerHTML =
+            `<div id="notif" class="alertx">
+  ` + pars.message + `
+</div>`;
+
+          document.getElementById('msg').appendChild(div);
+          setInterval(function () {
+            var elem = document.getElementById("notif");
+            if (elem != null) elem.parentNode.removeChild(elem);
+          }, 5000);
+          document.getElementById("submit").disabled = false;
+          document.getElementById("cancel").disabled = false;
+        }
+      };
+      xhr.send(params);
+    }
+
+
+    var countDownDateX = new Date();
+    var countDownDate2 = countDownDateX.setTime(countDownDateX.getTime() + 10 * 60000);
+    var countDownDate = new Date(countDownDate2)
+    setInterval(function () {
+      var now = new Date().getTime();
+
+      var distance = countDownDate - now;
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("countdown-t").innerHTML = seconds + " : " + minutes;
+      if (distance < 0) {
+        document.getElementById("countdown-t").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+  </script>
+  </script>
+</body>
+
+</html>

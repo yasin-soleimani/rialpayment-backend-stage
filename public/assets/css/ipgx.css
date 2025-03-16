@@ -1,0 +1,366 @@
+/**
+*
+*	Name:			IRAN Sans-Serif Font
+*	Version:		5.0
+*	Author:			Moslem Ebrahimi (moslemebrahimi.com)
+*	Created on:		Dec 25, 2012
+*	Updated on:		Sep 01, 2017
+*	Website:		             http://fontiran.com
+*	Copyright:		Commercial/Proprietary Software
+--------------------------------------------------------------------------------------
+فونت های ایران سن سریف یک نرم افزار مالکیتی محسوب می شود. جهت آگاهی از قوانین استفاده از این فونت ها لطفا به وب سایت (فونت ایران دات کام) مراجعه نمایید
+--------------------------------------------------------------------------------------
+IRAN Sans-serif fonts are considered a proprietary software. To gain information about the laws regarding the use of these fonts, please visit www.fontiran.com 
+--------------------------------------------------------------------------------------
+This set of fonts are used in this project under the license: (.....)
+--------------------------------------------------------------------------------------
+*	
+**/
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+  font-weight: 900;
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot');
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('https://webapi.iccard.ir/assets/fonts/woff2/IRANSansWeb(FaNum)_Black.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('https://webapi.iccard.ir/assets/fonts/woff/IRANSansWeb(FaNum)_Black.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('https://webapi.iccard.ir/assets/fonts/ttf/IRANSansWeb(FaNum)_Black.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: bold;
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Bold.eot');
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('https://webapi.iccard.ir/assets/fonts/woff2/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('https://webapi.iccard.ir/assets/fonts/woff/IRANSansWeb(FaNum)_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('https://webapi.iccard.ir/assets/fonts/ttf/IRANSansWeb(FaNum)_Bold.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 500;
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Medium.eot');
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('https://webapi.iccard.ir/assets/fonts/woff2/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('https://webapi.iccard.ir/assets/fonts/woff/IRANSansWeb(FaNum)_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('https://webapi.iccard.ir/assets/fonts/ttf/IRANSansWeb(FaNum)_Medium.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 300;
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Light.eot');
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('https://webapi.iccard.ir/assets/fonts/woff2/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('https://webapi.iccard.ir/assets/fonts/woff/IRANSansWeb(FaNum)_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('https://webapi.iccard.ir/assets/fonts/ttf/IRANSansWeb(FaNum)_Light.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: 200;
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_UltraLight.eot');
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('https://webapi.iccard.ir/assets/fonts/woff2/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('https://webapi.iccard.ir/assets/fonts/woff/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('https://webapi.iccard.ir/assets/fonts/ttf/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype');
+}
+@font-face {
+	font-family: IRANSans;
+	font-style: normal;
+	font-weight: normal;
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum).eot');
+	src: url('https://webapi.iccard.ir/assets/fonts/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('https://webapi.iccard.ir/assets/fonts/woff2/IRANSansWeb(FaNum).woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('https://webapi.iccard.ir/assets/fonts/woff/IRANSansWeb(FaNum).woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('https://webapi.iccard.ir/assets/fonts/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
+}
+
+/********* end of font-face section *********/
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  direction: rtl;
+  font-size: 14px;
+  background-color: #ecf0f1;
+}
+
+body {
+  font-family: "IRANSans";
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-wrap: wrap;
+}
+
+.card {
+  min-height: 400px;
+  box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  position: relative;
+  padding: 1em;
+  background-color: #ddd;
+  background-image: url('../img/back1.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.subcard {
+  background-color: #152a68;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.4);
+  padding: 1em;
+  color: white;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.subcard>.subcard-header {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+  margin-bottom: 1em;
+}
+
+.iranian-title {
+  margin-right: 10px;
+  margin-top: 10px;
+  font-size: 1.3em;
+  font-weight: lighter;
+}
+
+.subcard-body {
+  direction: rtl;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.subcard-body .logo {
+  min-width: 96px;
+  max-width: 96px;
+  background-color: #fff;
+  height: 96px;
+  border-radius: 5px;
+}
+
+.subcard-body .details {
+  font-size: 14px;
+  margin-right: 1em;
+}
+
+.subcard-body .details p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.subcard-body .details p.amount {
+  font-size: 1.1em;
+}
+
+.app-dl-warning-top {
+  text-align: center;
+  padding: 0.5em 1em;
+  color: white;
+  background-color: #c0392b;
+  border-radius: 30px;
+}
+
+.app-dl-warning {
+  text-align: center;
+  padding: 0.5em 1em;
+  color: white;
+  background-color: rgba(21, 42, 104, 0.8);
+  border-radius: 30px;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: center;
+}
+
+.logos > div {
+  margin: 0.4em;
+}
+
+.app-dl-warning > a {
+  background: #152a68;
+  border-radius: 30px;
+  padding: 0.2em 1em;
+  font-weight: lighter;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  outline: none;
+  border: 2px solid #152a68;
+}
+
+.app-dl-warning > a:hover {
+  background: white;
+  color: #152a68;
+}
+
+/***** QR section *****/
+.qr-section {
+  text-align: center;
+  z-index: 999;
+}
+
+.detail {
+  display: block;
+  margin-top: 32px;
+  text-align: center;
+}
+
+.detail p {
+  text-align: center;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #808eab;
+  letter-spacing: 0.15rem;
+  margin-bottom: 10px;
+}
+
+#result {
+  width: 260px;
+  height: 260px;
+  padding-top: 1em;
+  border-radius: 8px;
+  background: #f7f7f8;
+  margin: auto;
+  box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+/**** button style****/
+button {
+  transition: all 0.2s linear;
+  font-family: "IRANSans", "Open Sans", sans-serif;
+  background: #152a68;
+  color: white;
+  font-size: 0.97rem;
+  font-weight: lighter;
+  border: 2px solid #152a68;
+  padding: 7px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  margin: 1em auto;
+  box-shadow: 0;
+}
+
+button:hover {
+  background: white;
+  border: 2px solid #152a68;
+  color: #152a68;
+}
+
+a {
+  text-decoration: none;
+  color: #152a68;
+}
+
+a:hover {
+  border-bottom: 1px dotted #152a68;
+}
+
+@media (min-width: 1200px) {
+  .container>.card {
+    width: 30%;
+  }
+  .subcard {
+    width: 25vw;
+    margin-top: -150px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container>.card {
+    width: 45%;
+  }
+  .subcard {
+    width: 25vw;
+    margin-top: -100px;
+  }
+}
+
+@media (min-width: 570px) and (max-width: 991px) {
+  .container>.card {
+    width: 80vw;
+  }
+  .subcard {
+    width: 80vw;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 569px) {
+  .container>.card {
+    width: 100%;
+  }
+
+  .subcard {
+    width: 100vw;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+}
+
+.toast-message {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  width: 400px;
+  font-size: 16px;
+  transition: all .5s;
+  z-index: 9999;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 424px) {
+  .toast-message {
+    width: calc(100% - 20px);
+  }
+}
+.toast-message.success {
+  background: #27ae60;
+}
+.toast-message.danger {
+  background: #c0392b;
+}
+.toast-message .message {
+  color: #fff;
+  padding: 20px 30px;
+  text-align: center;
+}
+.toast-message .close {
+  position: absolute;
+  top: 35%;
+  right: 15px;
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: black;
+  text-shadow: white 0px 1px 0px;
+  opacity: 0.2;
+  cursor: pointer;
+}
+.toast-message .close::after {
+  content: "×";
+}
+.toast-message .close:hover {
+  opacity: 0.6;
+}

@@ -1,0 +1,10 @@
+// material components style
+@import "~@angular-mdc/theme/material";
+
+// CORE
+@import 'core/variables';
+@import "core/responsive";
+@import 'core/card';
+@import 'core/misc';
+@import 'core/inputs';
+@import 'core/buttons';

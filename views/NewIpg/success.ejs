@@ -1,0 +1,59 @@
+
+
+<div>
+  <div class="subcard">
+    <div class="subcard-header">
+      <div>
+        <img src="https://core-backend.rialpayment.ir/assets/img/logo300.png" width="48" height="48"
+        alt="لوگوی ریال پیمنت">
+      </div>
+      <div>
+        <p class="iranian-title">درگاه امن پرداخت ریال پیمنت</p>
+      </div>
+    </div>
+
+    <div class="subcard-body">
+      <div class="logo"><img width="96" height="96" src="<%= logo %>"></div>
+      <div class="details">
+        <p><%= title %></p>
+        <p>کد ترمینال :‌ <%= terminalid %></p>
+        <input type="hidden" value="<%= ref %>" id="token">
+        <input type="hidden" value="<%= amount %>" id="amount">
+        <p class="amount"> <b>مبلغ تراکنش: <%= amount %>  ریال</b> </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="card">
+    <p class="app-dl-warning-top">
+      برای محافظت از اطلاعات بانکی خود و جلوگیری از فیشینگ پرداخت را با اپلیکیشن انجام دهید
+    </p>
+    <div class="qr-section">
+      <div class="detail">
+        <div id="result"></div>
+
+        <div>
+          <button>پرداخت مستقیم با کارت شتابی در مرورگر</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logos">
+    <div><img width="56" height="56" src="http://localhost:3005/assets/img/logo/shaparak-min.png" alt=""></div>
+    <div><img width="56" height="56" src="http://localhost:3005/assets/img/logo/bank markazi-min.png" alt=""></div>
+    <div><img width="56" height="56" src="http://localhost:3005/assets/img/logo/parsian-min.png" alt=""></div>
+    <div><img width="56" height="56" src="http://localhost:3005/assets/img/logo/ap-min.png" alt=""></div>
+  </div>
+
+  <p class="app-dl-warning"> جهت دریافت اپلیکیشن به صفحه <a href="http://app.rialpayment.ir/"
+      target="blank"><span>دانلود
+        اپلیکیشن</span></a> مراجعه کنید. و یا عدد 1 را به شماره 100075181000 پیامک کنید.</p>
+  <p style="text-align: center">این شرکت دارای مجوز شماره <a
+      href="https://shaparak.ir/content?id=290" target="blank"><b>۹۸ / ص / ۶۴۶</b></a> از شرکت
+    شاپرک می‌باشد.
+  </p>
+
+</div>
+

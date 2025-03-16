@@ -1,0 +1,8 @@
+export enum ProductSoldStatusEnum {
+  PROCESSING = 1,
+  ACCEPTED = 2,
+  DELIVERED_TO_POST = 3,
+  DELIVERED = 4,
+  DELIVERED_TO_BIKE_DELIVERY = 5,
+  TURNED_OVER = 6,
+}
