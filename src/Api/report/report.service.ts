@@ -875,21 +875,22 @@ export class ReportApiService {
     const userRole = await this.userService.findById(userid);
 
     const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-    console.log("get terminals list with merchant:::", terminalList.docs);
 
     let datax = [];
     if (query.$and[0].terminal === "") {
-      terminalList.docs.forEach(async (terminal) => {
-        let terminalQuery = {
-          '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
-        }
+      console.log("get terminals list with merchant:::", terminalList.docs);
 
-        const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+      // terminalList.docs.forEach(async (terminal) => {
+      //   let terminalQuery = {
+      //     '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
+      //   }
 
-        console.log("result terminal data:::", terminalData);
-        datax.push(terminalData);
-      });
-      
+      //   const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+
+      //   console.log("result terminal data:::", terminalData);
+      //   datax.push(terminalData);
+      // });
+
 
     } else {
       datax = await this.pspVerifyService.getPspFilter(query, page);
