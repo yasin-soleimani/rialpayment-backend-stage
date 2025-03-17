@@ -871,6 +871,7 @@ export class ReportApiService {
 
   async getPspFilter(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
+    console.log("result query:::", query);
     const userRole = await this.userService.findById(userid);
     console.log("user role:::", userRole);
     const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.merchant, userRole.type);
