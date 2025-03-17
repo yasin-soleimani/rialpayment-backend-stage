@@ -171,7 +171,6 @@ export class UserMerchantService {
 
   async getListTerminals(userid, page, merchantid, role): Promise<any> {
     const data = await this.terminalCoreService.getListTerminals(userid, page, merchantid, role);
-    console.log("get terminal list data:::", data);
     const res = await this.genTerminalList(data.docs);
     data.docs = res;
     return this.transformPaginateData(data);
