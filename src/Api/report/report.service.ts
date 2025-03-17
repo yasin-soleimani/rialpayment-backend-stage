@@ -888,7 +888,7 @@ export class ReportApiService {
                 terminal: terminal._id 
               }]
             };
-            const getTerminalPsp = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+            const getTerminalPsp = await this.pspVerifyService.getPspFilter(terminalQuery, Number(page));
             console.log("get terminals request data:::", getTerminalPsp);
             datax.docs.push(getTerminalPsp);
             records.push(getTerminalPsp);
@@ -896,16 +896,14 @@ export class ReportApiService {
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
-          console.log("records:::", await records);
 
-          console.log("terminal data:::", terminalResults);
           // Combine all terminal data
+          datax.page = Number(page),
           datax.docs = terminalResults.reduce((acc, curr) => {
             if (curr && curr.docs) {
               return [...acc, ...curr.docs];
             }
 
-            console.log("acc:::", acc);
             return acc;
           }, []);
         }
