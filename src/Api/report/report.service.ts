@@ -884,7 +884,7 @@ export class ReportApiService {
             console.log("terminal:::", terminal);
             const terminalQuery = {
               '$and': [{ 
-                merchant: query.$and[0].merchant, 
+                // merchant: query.$and[0].merchant, 
                 terminal: terminal._id 
               }]
             };
