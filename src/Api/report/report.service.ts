@@ -872,14 +872,14 @@ export class ReportApiService {
   async getPspFilter(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
     // console.log("result query:::", query.$and[0]);
-    const userRole = await this.userService.findById(userid);
-
-    const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-    console.log("get terminals list with merchant:::", terminalList.docs);
-
+    
+    console.log("query:::", query);
+    
     let datax: any = [];
     if (query.$and[0].terminal === "") {
-      terminalList.docs.forEach(async (terminal) => {
+      const userRole = await this.userService.findById(userid);
+      const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
+      await terminalList.docs.forEach(async (terminal) => {
         let terminalQuery = {
           '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
         }
