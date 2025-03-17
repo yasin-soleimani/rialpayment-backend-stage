@@ -872,25 +872,37 @@ export class ReportApiService {
   async getPspFilter(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
     // console.log("result query:::", query.$and[0]);
-    
+
     console.log("query:::", query);
-    
+
     let datax: any = [];
     if (query.$and[0].terminal === "") {
       const userRole = await this.userService.findById(userid);
       const terminalList: any = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-      console.log("terminal list:::", terminalList);
-      await terminalList?.data.forEach(async (terminal) => {
+      console.log("terminal list:::", terminalList.data);
+
+      for (let terminal = 0; terminal < terminalList.data.length; terminal++) {
         let terminalQuery = {
-          '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
+          '$and': [{ merchant: query.$and[0].merchant, terminal: terminalList[terminal]._id }]
         }
 
         const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
 
         console.log("result terminal data:::", terminalData);
         datax.push(terminalData);
-      });
-      
+
+      }
+      // await terminalList?.data.forEach(async (terminal) => {
+      //   let terminalQuery = {
+      //     '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
+      //   }
+
+      //   const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+
+      //   console.log("result terminal data:::", terminalData);
+      //   datax.push(terminalData);
+      // });
+
 
     } else {
       datax = await this.pspVerifyService.getPspFilter(query, page);
