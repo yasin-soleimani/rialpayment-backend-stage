@@ -874,6 +874,7 @@ export class ReportApiService {
     try {
       let datax: any = { docs: [], total: 0, pages: 0, page: page, limit: 50 };
 
+      console.log("page::: ", page);
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
@@ -912,10 +913,6 @@ export class ReportApiService {
         }
       } else {
         datax = await this.pspVerifyService.getPspFilter(query, page);
-        // Ensure pages is calculated even for single terminal case
-        if (!datax.pages) {
-          datax.pages = Math.ceil(datax.total / 50);
-        }
       }
 
       // Process the transaction data

@@ -36,6 +36,7 @@ export function successOptWithDataNoValidation(data){
 }
 
 export function successOptWithPagination(data, price?, details?) {
+    console.log("pagination data::: ", data);
     return {
         status: 200,
         success: true,
