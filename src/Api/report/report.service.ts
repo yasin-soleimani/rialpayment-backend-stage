@@ -871,13 +871,30 @@ export class ReportApiService {
 
   async getPspFilter(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
-    console.log("result query:::", query.$and[0]);
+    // console.log("result query:::", query.$and[0]);
     const userRole = await this.userService.findById(userid);
-    console.log("user role:::", userRole);
+
     const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-    console.log("get terminals list with merchant:::", terminalList);
-    const datax = await this.pspVerifyService.getPspFilter(query, page);
+    console.log("get terminals list with merchant:::", terminalList.docs);
+
+    let datax = [];
+    if (query.$and[0].terminal === "") {
+      terminalList.forEach(async (terminal) => {
+        let terminalQuery = {
+          '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
+        }
+
+        const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+        datax.push(terminalData);
+      });
+      
+
+    } else {
+      datax = await this.pspVerifyService.getPspFilter(query, page);
+    }
+
     console.log("get transacions fliter datax:::", datax);
+
     let tmpArray = Array();
     const data = datax.docs;
     for (const item of data) {
@@ -1169,7 +1186,7 @@ export class ReportApiService {
     data = await this.pspService.getAll(cards, null, terminals, merchant, from, to);
     let tmpArray = Array();
     let counter = 1;
-    for (let item in data) {    
+    for (let item in data) {
       const userInfo = await this.cardService.getCardInfo(data[item].cardno);
       tmpArray.push({
         _id: counter,
