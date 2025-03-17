@@ -872,11 +872,12 @@ export class ReportApiService {
   // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = { docs: [] };
+      let datax: any = { docs: [], total: 0, page: page, limit: 50 };
 
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
+        
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
           const terminalDataPromises = terminalList.data.map(async (terminal) => {
@@ -886,22 +887,27 @@ export class ReportApiService {
                 terminal: terminal._id 
               }]
             };
-            // datax.docs.push(getTerminalPsp);
             return this.pspVerifyService.getPspFilter(terminalQuery, page);
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
-
-          // Combine all terminal data
-          datax.docs = terminalResults.reduce((acc, curr) => {
-            if (curr && curr.docs) {
-              console.log('curr.docs', curr.docs);
-              console.log('acc', acc);
-              return datax;
+          
+          // Combine all terminal data and calculate total
+          let totalDocs = 0;
+          let allDocs = [];
+          
+          terminalResults.forEach(result => {
+            if (result && result.docs) {
+              totalDocs += result.total || result.docs.length;
+              allDocs = [...allDocs, ...result.docs];
             }
+          });
 
-            return acc;
-          }, []);
+          // Apply pagination to combined results
+          const startIndex = (page - 1) * 50;
+          const endIndex = startIndex + 50;
+          datax.docs = allDocs.slice(startIndex, endIndex);
+          datax.total = totalDocs;
         }
       } else {
         datax = await this.pspVerifyService.getPspFilter(query, page);
@@ -966,8 +972,6 @@ export class ReportApiService {
       throw error;
     }
   }
-
-  // end edit by cursor
 
   async getPspFilterAggregate(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
