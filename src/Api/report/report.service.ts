@@ -877,10 +877,11 @@ export class ReportApiService {
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-        
+        console.log("terminal list:::", terminalList);
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
           const terminalDataPromises = terminalList.data.map(async (terminal) => {
+            console.log("terminal:::", terminal);
             const terminalQuery = {
               '$and': [{ 
                 merchant: query.$and[0].merchant, 
