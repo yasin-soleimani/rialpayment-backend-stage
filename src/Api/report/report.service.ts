@@ -892,7 +892,7 @@ export class ReportApiService {
             const getPspFromTerminal = await this.pspVerifyService.getPspFilter(terminalQuery, page);
             console.log("get psp terminal:::", getPspFromTerminal);
 
-            datax.docs.push(getPspFromTerminal.docs);
+            datax.docs.push(await getPspFromTerminal?.docs);
           });
 
           // const terminalResults = await Promise.all(terminalDataPromises);
