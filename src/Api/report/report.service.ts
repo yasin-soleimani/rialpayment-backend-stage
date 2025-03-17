@@ -872,7 +872,7 @@ export class ReportApiService {
   // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = { docs: [], total: 0, page: page, limit: 50 };
+      let datax: any = { docs: [], total: 0, pages: 0, page: page, limit: 50 };
 
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
@@ -908,9 +908,14 @@ export class ReportApiService {
           const endIndex = startIndex + 50;
           datax.docs = allDocs.slice(startIndex, endIndex);
           datax.total = totalDocs;
+          datax.pages = Math.ceil(totalDocs / 50);
         }
       } else {
         datax = await this.pspVerifyService.getPspFilter(query, page);
+        // Ensure pages is calculated even for single terminal case
+        if (!datax.pages) {
+          datax.pages = Math.ceil(datax.total / 50);
+        }
       }
 
       // Process the transaction data
@@ -972,6 +977,8 @@ export class ReportApiService {
       throw error;
     }
   }
+
+  // end edit by cursor
 
   async getPspFilterAggregate(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
