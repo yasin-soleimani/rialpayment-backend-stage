@@ -872,9 +872,8 @@ export class ReportApiService {
   // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = { docs: [], total: 0, pages: 0, page: Number(page), limit: 50 };
+      let datax: any = {};
 
-      console.log("page::: ", page);
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, 1, query.$and[0].merchant, userRole.type);
@@ -888,28 +887,31 @@ export class ReportApiService {
                 terminal: terminal._id 
               }]
             };
+
+            console.log("terminal data promises:::", terminalDataPromises);
             return this.pspVerifyService.getPspFilter(terminalQuery, page);
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
           
           // Combine all terminal data and calculate total
-          let totalDocs = 0;
-          let allDocs = [];
+          // let totalDocs = 0;
+          // let allDocs = [];
           
           terminalResults.forEach(result => {
-            if (result && result.docs) {
-              totalDocs += result.total || result.docs.length;
-              allDocs = [...allDocs, ...result.docs];
-            }
+            console.log("result:::", result);
+            // if (result && result.docs) {
+            //   totalDocs += result.total || result.docs.length;
+            //   allDocs = [...allDocs, ...result.docs];
+            // }
           });
 
           // Apply pagination to combined results
-          const startIndex = (page - 1) * 50;
-          const endIndex = startIndex + 50;
-          datax.docs = allDocs.slice(startIndex, endIndex);
-          datax.total = totalDocs;
-          datax.pages = Math.ceil(totalDocs / 50);
+          // const startIndex = (page - 1) * 50;
+          // const endIndex = startIndex + 50;
+          // datax.docs = allDocs.slice(startIndex, endIndex);
+          // datax.total = totalDocs;
+          // datax.pages = Math.ceil(totalDocs / 50);
         }
       } else {
         datax = await this.pspVerifyService.getPspFilter(query, page);
