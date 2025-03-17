@@ -18,6 +18,7 @@ import { GroupCoreModule } from '../../Core/group/group.module';
 import { MerchantSettlementCoreModule } from '../../Core/merchant-settlement/merchant-settlement.module';
 import { AccountModule } from '../../Core/useraccount/account/account.module';
 import { CardModule } from '../../Core/useraccount/card/card.module';
+import { UserMerchantModule } from '../merchant/merchant.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { CardModule } from '../../Core/useraccount/card/card.module';
     GroupReportCoreModule,
     MerchantSettlementCoreModule,
     AccountModule,
-    CardModule
+    CardModule,
+    UserMerchantModule
   ],
   controllers: [ReportController],
   providers: [ReportApiService, GeneralService, ReportCashoutService, ReportTicketHistoryExcel],
