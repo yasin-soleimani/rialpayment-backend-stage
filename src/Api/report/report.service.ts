@@ -48,6 +48,7 @@ import { GroupReportPspCoreService } from '../../Core/group-report/services/psp.
 import { SendAsanakSms } from '@vision/common/notify/sms.util';
 import { Console } from 'console';
 import { CardService } from '../../Core/useraccount/card/card.service';
+import { UserMerchantService } from '../merchant/merchant.service';
 
 @Injectable()
 export class ReportApiService {
@@ -71,6 +72,7 @@ export class ReportApiService {
     private readonly merchantSettlementCashout: MerchantSettlementCashoutService,
     private readonly pspService: GroupReportPspCoreService,
     private readonly cardService: CardService,
+    private readonly uMerchantService: UserMerchantService
   ) { }
 
   async calculateAutoCashout() {
@@ -869,6 +871,10 @@ export class ReportApiService {
 
   async getPspFilter(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
+    const userRole = await this.userService.findById(userid);
+    console.log("user role:::", userRole);
+    const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.merchant, userRole.type);
+    console.log("get terminals list with merchant:::", terminalList);
     const datax = await this.pspVerifyService.getPspFilter(query, page);
     console.log("get transacions fliter datax:::", datax);
     let tmpArray = Array();
