@@ -872,49 +872,45 @@ export class ReportApiService {
   // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = null;
+      let datax: any = { docs: [] };
 
+      console.log("page::: ", page);
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, 1, query.$and[0].merchant, userRole.type);
         
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
-          terminalList.data.map(async (terminal) => {
+          const terminalDataPromises = terminalList.data.map(async (terminal) => {
             const terminalQuery = {
               '$and': [{ 
                 // merchant: query.$and[0].merchant, 
                 terminal: terminal._id 
               }]
             };
-
-            console.log("terminal data promises:::", terminal);
-            const getPspFromTerminal = await this.pspVerifyService.getPspFilter(terminalQuery, page);
-            console.log("get psp terminal:::", getPspFromTerminal);
-
-            datax.docs.push(await getPspFromTerminal?.docs);
+            return this.pspVerifyService.getPspFilter(terminalQuery, page);
           });
 
-          // const terminalResults = await Promise.all(terminalDataPromises);
+          const terminalResults = await Promise.all(terminalDataPromises);
+
+          console.log("terminal results:::", terminalResults);
           
           // Combine all terminal data and calculate total
           // let totalDocs = 0;
-          // let allDocs = [];
+          let allDocs = [];
           
-          // terminalResults.forEach(result => {
-          //   console.log("result:::", result);
-            // if (result && result.docs) {
-            //   totalDocs += result.total || result.docs.length;
-            //   allDocs = [...allDocs, ...result.docs];
-            // }
-          // });
+          terminalResults.forEach(result => {
+            console.log("result:::", result);
+            if (result && result.docs) {
+              // totalDocs += result.total || result.docs.length;
+              allDocs = [...allDocs, ...result.docs];
+            }
+          });
+
+          console.log("all docs:::", allDocs);
 
           // Apply pagination to combined results
-          // const startIndex = (page - 1) * 50;
-          // const endIndex = startIndex + 50;
-          // datax.docs = allDocs.slice(startIndex, endIndex);
-          // datax.total = totalDocs;
-          // datax.pages = Math.ceil(totalDocs / 50);
+          datax.docs = allDocs;
         }
       } else {
         datax = await this.pspVerifyService.getPspFilter(query, page);
