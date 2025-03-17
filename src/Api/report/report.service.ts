@@ -891,11 +891,15 @@ export class ReportApiService {
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
+
+          console.log("terminal data:::", terminalResults);
           // Combine all terminal data
           datax.docs = terminalResults.reduce((acc, curr) => {
             if (curr && curr.docs) {
               return [...acc, ...curr.docs];
             }
+
+            console.log("acc:::", acc);
             return acc;
           }, []);
         }
