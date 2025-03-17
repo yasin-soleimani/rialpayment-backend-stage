@@ -869,98 +869,101 @@ export class ReportApiService {
     return successOptWithPagination(datax);
   }
 
+  // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
-    // return this.getAllMerchantsTerminalsReport( userid )
-    // console.log("result query:::", query.$and[0]);
+    try {
+      let datax: any = { docs: [] };
 
-    console.log("query:::", query);
+      if (query.$and[0].terminal === "") {
+        const userRole = await this.userService.findById(userid);
+        const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
+        
+        if (terminalList?.data?.length > 0) {
+          // Use Promise.all to handle multiple async operations in parallel
+          const terminalDataPromises = terminalList.data.map(async (terminal) => {
+            const terminalQuery = {
+              '$and': [{ 
+                merchant: query.$and[0].merchant, 
+                terminal: terminal._id 
+              }]
+            };
+            return this.pspVerifyService.getPspFilter(terminalQuery, page);
+          });
 
-    let datax: any = [];
-    if (query.$and[0].terminal === "") {
-      const userRole = await this.userService.findById(userid);
-      const terminalList: any = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-      const getTerminals = terminalList.data;
+          const terminalResults = await Promise.all(terminalDataPromises);
+          // Combine all terminal data
+          datax.docs = terminalResults.reduce((acc, curr) => {
+            if (curr && curr.docs) {
+              return [...acc, ...curr.docs];
+            }
+            return acc;
+          }, []);
+        }
+      } else {
+        datax = await this.pspVerifyService.getPspFilter(query, page);
+      }
 
-      for (let terminal = 0; terminal < getTerminals.length; terminal++) {
-        console.log("terminal:::", terminalList[terminal]);
-        let terminalQuery = {
-          '$and': [{ merchant: query.$and[0].merchant, terminal: terminalList[terminal]?._id }]
+      // Process the transaction data
+      const processedData = await Promise.all(datax.docs.map(async (item) => {
+        let msg;
+        let status;
+        
+        if (item.confirm === false && item.reverse === false) {
+          msg = 'در انتظار تاییدیه از شرکت پرداخت';
+          status = false;
+        } else if (item.confirm === true && item.reverse === false) {
+          msg = 'تراکنش تایید شد';
+          status = true;
+        } else if (item.confirm === false && item.reverse === true) {
+          msg = 'تراکنش برگشت داده شده';
+          status = false;
         }
 
-        const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+        const fullname = item.user ? item.user.fullname : '';
+        
+        let decode;
+        try {
+          if (item.req) {
+            decode = JSON.parse(item.req);
+          } else if (item.reqin) {
+            decode = JSON.parse(item.reqin);
+          } else {
+            decode = {
+              TrnAmt: 0,
+              CardNum: 0,
+            };
+          }
+        } catch (error) {
+          console.error('Error parsing transaction data:', error);
+          decode = {
+            TrnAmt: 0,
+            CardNum: 0,
+          };
+        }
 
-        console.log("result terminal data:::", terminalData);
-        datax.push(terminalData);
-
-      }
-      // await terminalList?.data.forEach(async (terminal) => {
-      //   let terminalQuery = {
-      //     '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
-      //   }
-
-      //   const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
-
-      //   console.log("result terminal data:::", terminalData);
-      //   datax.push(terminalData);
-      // });
-
-
-    } else {
-      datax = await this.pspVerifyService.getPspFilter(query, page);
-    }
-
-    console.log("get transacions fliter datax:::", datax);
-
-    let tmpArray = Array();
-    const data = datax.docs;
-    for (const item of data) {
-      let msg;
-      let status;
-      if (item.confirm == false && item.reverse == false) {
-        msg = 'در انتظار تاییدیه از شرکت پرداخت';
-        status = false;
-      } else if (item.confirm == true && item.reverse == false) {
-        msg = 'تراکنش تایید شد';
-        status = true;
-      } else if (item.confirm == false && item.reverse == true) {
-        msg = 'تراکنش برگشت داده شده';
-        status = false;
-      }
-
-      let fullanme = '';
-      if (item.user) {
-        fullanme = item.user.fullname;
-      }
-
-      let decode;
-      if (item.req) {
-        decode = JSON.parse(item.req);
-      } else if (item.reqin) {
-        decode = JSON.parse(item.reqin);
-      } else {
-        decode = {
-          TrnAmt: 0,
-          CardNum: 0,
+        return {
+          _id: item._id,
+          createdAt: item.createdAt,
+          amount: decode.TrnAmt,
+          customer: fullname,
+          msg: msg || 'عملیات با خطا مواجه شده است',
+          cardno: decode.CardNum,
+          ref: item.TraxID,
+          psp: '',
+          confirm: item.confirm,
+          status: status,
         };
-      }
-      tmpArray.push({
-        _id: item._id,
-        createdAt: item.createdAt,
-        amount: decode.TrnAmt,
-        customer: fullanme,
-        msg: msg || 'عملیات با خطا مواجه شده است',
-        cardno: decode.CardNum,
-        ref: item.TraxID,
-        psp: '',
-        confirm: item.confirm,
-        status: status,
-      });
-    }
-    datax.docs = tmpArray;
+      }));
 
-    console.log("get transactions filter finaly datax yasin:::", datax);
-    return successOptWithPagination(datax);
+      datax.docs = processedData;
+      return successOptWithPagination(datax);
+    } catch (error) {
+      console.error('Error in getPspFilter:', error);
+      throw error;
+    }
   }
+
+  // end edit by cursor
 
   async getPspFilterAggregate(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
