@@ -875,11 +875,11 @@ export class ReportApiService {
     const userRole = await this.userService.findById(userid);
 
     const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-    console.log("get terminals list with merchant:::", terminalList);
+    console.log("get terminals list with merchant:::", terminalList.docs);
 
     let datax = [];
     if (query.$and[0].terminal === "") {
-      terminalList.forEach(async (terminal) => {
+      terminalList.docs.forEach(async (terminal) => {
         let terminalQuery = {
           '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
         }
@@ -887,7 +887,7 @@ export class ReportApiService {
         const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
 
         console.log("result terminal data:::", terminalData);
-        // datax.push(terminalData);
+        datax.push(terminalData);
       });
       
 
