@@ -885,7 +885,9 @@ export class ReportApiService {
         }
 
         const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
-        datax.push(terminalData);
+
+        console.log("result terminal data:::", terminalData);
+        // datax.push(terminalData);
       });
       
 
@@ -896,7 +898,7 @@ export class ReportApiService {
     console.log("get transacions fliter datax:::", datax);
 
     let tmpArray = Array();
-    const data = datax?.docs;
+    const data = datax.docs;
     for (const item of data) {
       let msg;
       let status;
