@@ -895,10 +895,12 @@ export class ReportApiService {
           // Combine all terminal data
           datax.docs = terminalResults.reduce((acc, curr) => {
             if (curr && curr.docs) {
-              return [...acc, ...curr.docs];
+              console.log('curr.docs', curr.docs);
+              console.log('acc', acc);
+              return datax;
             }
 
-            return datax;
+            return acc;
           }, []);
         }
       } else {
