@@ -877,7 +877,7 @@ export class ReportApiService {
       console.log("page::: ", page);
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
-        const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
+        const terminalList = await this.uMerchantService.getListTerminals(userid, 1, query.$and[0].merchant, userRole.type);
         
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
