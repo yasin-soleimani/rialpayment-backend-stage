@@ -869,48 +869,47 @@ export class ReportApiService {
     return successOptWithPagination(datax);
   }
 
-  // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = { docs: [] };
+      let datax: any = { docs: [], total: 0, page: page, limit: 50 };
 
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-        console.log("terminal list:::", terminalList);
+        
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
           const terminalDataPromises = terminalList.data.map(async (terminal) => {
-            console.log("terminal:::", terminal);
             const terminalQuery = {
               '$and': [{ 
-                // merchant: query.$and[0].merchant, 
                 terminal: terminal._id 
               }]
             };
-            console.log("created query:::", terminalQuery);
-            const getTerminalPsp = await this.pspVerifyService.getPspFilter(terminalQuery, page);
-            console.log("get terminals request data:::", getTerminalPsp);
-            // datax.docs.push(getTerminalPsp);
             return this.pspVerifyService.getPspFilter(terminalQuery, page);
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
-
-          console.log("terminal data:::", terminalResults);
-          // Combine all terminal data
+          
+          // Combine all terminal data and calculate total
+          let totalDocs = 0;
           datax.docs = terminalResults.reduce((acc, curr) => {
             if (curr && curr.docs) {
+              totalDocs += curr.docs.length;
               return [...acc, ...curr.docs];
             }
-
-            console.log("acc:::", acc);
             return acc;
           }, []);
+          
+          datax.total = totalDocs;
         }
       } else {
-        console.log("default query:::", query);
-        datax = await this.pspVerifyService.getPspFilter(query, page);
+        const response = await this.pspVerifyService.getPspFilter(query, page);
+        datax = {
+          docs: response.docs || [],
+          total: response.total || 0,
+          page: response.page || page,
+          limit: response.limit || 50
+        };
       }
 
       // Process the transaction data
@@ -972,8 +971,6 @@ export class ReportApiService {
       throw error;
     }
   }
-
-  // end edit by cursor
 
   async getPspFilterAggregate(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
