@@ -872,7 +872,7 @@ export class ReportApiService {
   // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = { docs: [] };
+      let datax: any = null;
 
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
@@ -892,7 +892,7 @@ export class ReportApiService {
             const getPspFromTerminal = await this.pspVerifyService.getPspFilter(terminalQuery, page);
             console.log("get psp terminal:::", getPspFromTerminal);
 
-            datax.docs.push(getPspFromTerminal);
+            datax.docs.push(getPspFromTerminal.docs);
           });
 
           // const terminalResults = await Promise.all(terminalDataPromises);
