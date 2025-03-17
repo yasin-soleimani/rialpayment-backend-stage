@@ -882,8 +882,9 @@ export class ReportApiService {
       console.log("terminal list:::", terminalList.data);
 
       for (let terminal = 0; terminal < terminalList.data.length; terminal++) {
+        console.log("terminal:::", terminalList[terminal]);
         let terminalQuery = {
-          '$and': [{ merchant: query.$and[0].merchant, terminal: terminalList[terminal]._id }]
+          '$and': [{ merchant: query.$and[0].merchant, terminal: terminalList[terminal]?._id }]
         }
 
         const terminalData = await this.pspVerifyService.getPspFilter(terminalQuery, page);
