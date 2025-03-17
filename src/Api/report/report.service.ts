@@ -892,6 +892,7 @@ export class ReportApiService {
             console.log("get terminals request data:::", getTerminalPsp);
             datax.docs.push(getTerminalPsp);
             records.push(getTerminalPsp);
+            datax.pages = getTerminalPsp.pages;
             return getTerminalPsp;
           });
 
