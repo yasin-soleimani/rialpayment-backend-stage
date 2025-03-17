@@ -152,6 +152,8 @@ export class UserMerchantService {
     const data = await this.terminalCoreService.addNewTerminal(terminalData);
     if (!data) throw new UserCustomException('متاسفانه عملیات با خطا مواجه شده است', false, 500);
     this.generalService.registerMerchantInAsanPardakht(merchantInfo.merchantcode, getInfo.terminalid);
+
+    console.log("get terminal list data:::", data);
     return this.successNewTerminalOpt(data);
   }
 
