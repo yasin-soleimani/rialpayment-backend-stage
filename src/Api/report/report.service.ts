@@ -900,10 +900,9 @@ export class ReportApiService {
           let allDocs = [];
           
           terminalResults.forEach(result => {
-            allDocs.push(result.docs)
             if (result && result.docs) {
               // totalDocs += result.total || result.docs.length;
-              // allDocs = [...allDocs, ...result.docs];
+              allDocs = [...allDocs, ...result.docs];
             }
           });
 
