@@ -893,6 +893,7 @@ export class ReportApiService {
             datax.docs.push(getTerminalPsp);
             records.push(getTerminalPsp);
             datax.pages = getTerminalPsp.pages;
+            datax.total = getTerminalPsp.total;
             return getTerminalPsp;
           });
 
