@@ -879,9 +879,9 @@ export class ReportApiService {
     if (query.$and[0].terminal === "") {
       const userRole = await this.userService.findById(userid);
       const terminalList: any = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
-      console.log("terminal list:::", terminalList.data);
+      const getTerminals = terminalList.data;
 
-      for (let terminal = 0; terminal < terminalList.data.length; terminal++) {
+      for (let terminal = 0; terminal < getTerminals.length; terminal++) {
         console.log("terminal:::", terminalList[terminal]);
         let terminalQuery = {
           '$and': [{ merchant: query.$and[0].merchant, terminal: terminalList[terminal]?._id }]
