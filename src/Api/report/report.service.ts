@@ -888,29 +888,27 @@ export class ReportApiService {
                 terminal: terminal._id 
               }]
             };
-            return this.pspVerifyService.getPspFilter(terminalQuery, page);
+            return this.pspVerifyService.getPspFilter(terminalQuery, Number(page));
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
 
-          console.log("terminal results:::", terminalResults);
+          console.log("terminal results:::", terminalResults[0].docs);
           
           // Combine all terminal data and calculate total
           // let totalDocs = 0;
           let allDocs = [];
           
           terminalResults.forEach(result => {
-            console.log("result:::", result);
+            allDocs.push(result.docs)
             if (result && result.docs) {
               // totalDocs += result.total || result.docs.length;
-              allDocs = [...allDocs, ...result.docs];
+              // allDocs = [...allDocs, ...result.docs];
             }
           });
 
-          console.log("all docs:::", allDocs);
-
           // Apply pagination to combined results
-          datax.docs = allDocs;
+          datax = allDocs;
         }
       } else {
         datax = await this.pspVerifyService.getPspFilter(query, page);
