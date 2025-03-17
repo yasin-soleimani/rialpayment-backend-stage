@@ -872,7 +872,7 @@ export class ReportApiService {
   // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = { docs: [], total: 0, pages: 0, page: page, limit: 50 };
+      let datax: any = { docs: [], total: 0, pages: 0, page: Number(page), limit: 50 };
 
       console.log("page::: ", page);
       if (query.$and[0].terminal === "") {
