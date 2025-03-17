@@ -896,7 +896,7 @@ export class ReportApiService {
     console.log("get transacions fliter datax:::", datax);
 
     let tmpArray = Array();
-    const data = datax.docs;
+    const data = datax?.docs;
     for (const item of data) {
       let msg;
       let status;
