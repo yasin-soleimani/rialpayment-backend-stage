@@ -152,8 +152,6 @@ export class UserMerchantService {
     const data = await this.terminalCoreService.addNewTerminal(terminalData);
     if (!data) throw new UserCustomException('متاسفانه عملیات با خطا مواجه شده است', false, 500);
     this.generalService.registerMerchantInAsanPardakht(merchantInfo.merchantcode, getInfo.terminalid);
-
-    console.log("get terminal list data:::", data);
     return this.successNewTerminalOpt(data);
   }
 
@@ -172,7 +170,9 @@ export class UserMerchantService {
   }
 
   async getListTerminals(userid, page, merchantid, role): Promise<any> {
+    console.log("input get terminal:::", "user:", userid, "page:", page, "merchant:", merchantid, "role:", role);
     const data = await this.terminalCoreService.getListTerminals(userid, page, merchantid, role);
+    console.log("get terminal list data:::", data);
     const res = await this.genTerminalList(data.docs);
     data.docs = res;
     return this.transformPaginateData(data);
