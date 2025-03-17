@@ -874,11 +874,12 @@ export class ReportApiService {
     // console.log("result query:::", query.$and[0]);
     const userRole = await this.userService.findById(userid);
 
+    console.log("query:::", query);
     const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
 
     let datax = [];
-    if (query.$and[0].terminal === "") {
-      console.log("get terminals list with merchant:::", terminalList.docs);
+    // if (query.$and[0].terminal === "") {
+    //   console.log("get terminals list with merchant:::", terminalList.docs);
 
       // terminalList.docs.forEach(async (terminal) => {
       //   let terminalQuery = {
@@ -892,9 +893,9 @@ export class ReportApiService {
       // });
 
 
-    } else {
+    // } else {
       datax = await this.pspVerifyService.getPspFilter(query, page);
-    }
+    // }
 
     console.log("get transacions fliter datax:::", datax);
 
