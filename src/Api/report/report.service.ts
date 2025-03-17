@@ -891,7 +891,8 @@ export class ReportApiService {
             console.log("created query:::", terminalQuery);
             const getTerminalPsp = await this.pspVerifyService.getPspFilter(terminalQuery, page);
             console.log("get terminals request data:::", getTerminalPsp);
-            datax.docs.push(getTerminalPsp);
+            // datax.docs.push(getTerminalPsp);
+            return this.pspVerifyService.getPspFilter(terminalQuery, page);
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
