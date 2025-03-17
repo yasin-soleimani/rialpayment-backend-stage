@@ -873,7 +873,7 @@ export class ReportApiService {
   async getPspFilter(query, page, userid): Promise<any> {
     try {
       let datax: any = { docs: [] };
-
+      let records: any = [];
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, 1, query.$and[0].merchant, userRole.type);
@@ -891,9 +891,12 @@ export class ReportApiService {
             const getTerminalPsp = await this.pspVerifyService.getPspFilter(terminalQuery, page);
             console.log("get terminals request data:::", getTerminalPsp);
             datax.docs.push(getTerminalPsp);
+            records.push(getTerminalPsp);
+            return getTerminalPsp;
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
+          console.log("records:::", await records);
 
           console.log("terminal data:::", terminalResults);
           // Combine all terminal data
