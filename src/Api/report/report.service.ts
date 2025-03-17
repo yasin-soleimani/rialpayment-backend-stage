@@ -880,7 +880,7 @@ export class ReportApiService {
       const userRole = await this.userService.findById(userid);
       const terminalList: any = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
       console.log("terminal list:::", terminalList);
-      await terminalList.data.forEach(async (terminal) => {
+      await terminalList?.data.forEach(async (terminal) => {
         let terminalQuery = {
           '$and':[{ merchant: query.$and[0].merchant, terminal: terminal._id }]
         }
