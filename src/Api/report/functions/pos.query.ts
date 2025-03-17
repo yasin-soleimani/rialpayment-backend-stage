@@ -18,7 +18,7 @@ export function posQueryBuiler(getInfo: ReportApiDto, withCards = false, cards =
   if (getInfo.terminal == '0') {
     tmp.push({
       merchant: getInfo.merchant,
-      terminal: "all",
+      terminal: 0,
     });
   } else {
     tmp.push({

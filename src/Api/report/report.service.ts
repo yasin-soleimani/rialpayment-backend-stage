@@ -871,10 +871,10 @@ export class ReportApiService {
 
   async getPspFilter(query, page, userid): Promise<any> {
     // return this.getAllMerchantsTerminalsReport( userid )
-    console.log("result query:::", query);
+    console.log("result query:::", query.$and[0]);
     const userRole = await this.userService.findById(userid);
     console.log("user role:::", userRole);
-    const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.merchant, userRole.type);
+    const terminalList = await this.uMerchantService.getListTerminals(userid, page, query.$and[0].merchant, userRole.type);
     console.log("get terminals list with merchant:::", terminalList);
     const datax = await this.pspVerifyService.getPspFilter(query, page);
     console.log("get transacions fliter datax:::", datax);
