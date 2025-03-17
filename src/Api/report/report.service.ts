@@ -872,7 +872,7 @@ export class ReportApiService {
   // start edit by cursor
   async getPspFilter(query, page, userid): Promise<any> {
     try {
-      let datax: any = {};
+      let datax: any = { docs: [] };
 
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
@@ -880,7 +880,7 @@ export class ReportApiService {
         
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
-          const terminalDataPromises = terminalList.data.map(async (terminal) => {
+          terminalList.data.map(async (terminal) => {
             const terminalQuery = {
               '$and': [{ 
                 // merchant: query.$and[0].merchant, 
@@ -888,23 +888,23 @@ export class ReportApiService {
               }]
             };
 
-            console.log("terminal data promises:::", terminalDataPromises);
+            console.log("terminal data promises:::", terminal);
             return this.pspVerifyService.getPspFilter(terminalQuery, page);
           });
 
-          const terminalResults = await Promise.all(terminalDataPromises);
+          // const terminalResults = await Promise.all(terminalDataPromises);
           
           // Combine all terminal data and calculate total
           // let totalDocs = 0;
           // let allDocs = [];
           
-          terminalResults.forEach(result => {
-            console.log("result:::", result);
+          // terminalResults.forEach(result => {
+          //   console.log("result:::", result);
             // if (result && result.docs) {
             //   totalDocs += result.total || result.docs.length;
             //   allDocs = [...allDocs, ...result.docs];
             // }
-          });
+          // });
 
           // Apply pagination to combined results
           // const startIndex = (page - 1) * 50;
