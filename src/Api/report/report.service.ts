@@ -874,42 +874,40 @@ export class ReportApiService {
     try {
       let datax: any = { docs: [] };
 
-      console.log("page::: ", page);
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, 1, query.$and[0].merchant, userRole.type);
-        
+        console.log("terminal list:::", terminalList);
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
           const terminalDataPromises = terminalList.data.map(async (terminal) => {
+            console.log("terminal:::", terminal);
             const terminalQuery = {
               '$and': [{ 
                 // merchant: query.$and[0].merchant, 
                 terminal: terminal._id 
               }]
             };
-            return this.pspVerifyService.getPspFilter(terminalQuery, Number(page));
+            const getTerminalPsp = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+            console.log("get terminals request data:::", getTerminalPsp);
+            datax.docs.push(getTerminalPsp);
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
 
-          console.log("terminal results:::", terminalResults[0].docs);
-          
-          // Combine all terminal data and calculate total
-          // let totalDocs = 0;
-          let allDocs = [];
-          
-          terminalResults.forEach(result => {
-            if (result && result.docs) {
-              // totalDocs += result.total || result.docs.length;
-              allDocs = [...allDocs, ...result.docs];
+          console.log("terminal data:::", terminalResults);
+          // Combine all terminal data
+          datax.docs = terminalResults.reduce((acc, curr) => {
+            if (curr && curr.docs) {
+              return [...acc, ...curr.docs];
             }
-          });
 
-          // Apply pagination to combined results
-          datax = allDocs;
+            console.log("acc:::", acc);
+            return acc;
+          }, []);
         }
       } else {
+        console.log("default query:::", query);
         datax = await this.pspVerifyService.getPspFilter(query, page);
       }
 
