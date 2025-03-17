@@ -877,10 +877,11 @@ export class ReportApiService {
       if (query.$and[0].terminal === "") {
         const userRole = await this.userService.findById(userid);
         const terminalList = await this.uMerchantService.getListTerminals(userid, 1, query.$and[0].merchant, userRole.type);
+        console.log("terminal list:::", terminalList);
         if (terminalList?.data?.length > 0) {
           // Use Promise.all to handle multiple async operations in parallel
           const terminalDataPromises = terminalList.data.map(async (terminal) => {
-            // console.log("terminal:::", terminal);
+            console.log("terminal:::", terminal);
             const terminalQuery = {
               '$and': [{ 
                 // merchant: query.$and[0].merchant, 
@@ -888,18 +889,20 @@ export class ReportApiService {
               }]
             };
             const getTerminalPsp = await this.pspVerifyService.getPspFilter(terminalQuery, page);
+            console.log("get terminals request data:::", getTerminalPsp);
             datax.docs.push(getTerminalPsp);
           });
 
           const terminalResults = await Promise.all(terminalDataPromises);
 
+          console.log("terminal data:::", terminalResults);
           // Combine all terminal data
           datax.docs = terminalResults.reduce((acc, curr) => {
             if (curr && curr.docs) {
-
               return [...acc, ...curr.docs];
             }
 
+            console.log("acc:::", acc);
             return acc;
           }, []);
         }
